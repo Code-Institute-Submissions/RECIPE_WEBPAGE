@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*nav and footer */
+
+.nav-wrapper {
+    background-color: #152B39;
+}
+
+.page-footer {
+    background-color: #152B39;
+    margin-top: 100px;
+}
+
+/* logo styling */
+
+.little {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 0.5em;
+    color: white;
+}
+.page-title{
+    margin: 20px 0;
+}
+
+/* First page  */
+
+#main-login-page {
+    background-image: url("https://images.pexels.com/photos/357743/pexels-photo-357743.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 0 0 0;
+}
+
+#main-login-page h1 {
+    color: #f9fbff;
+    margin-bottom: 40px;
+    
+}
+
+#main-login-page p {
+    color: #f9fbff;
+    font-size: 1.2em;
+}
+
+.main-button {
+    margin-top: 10px;
+    color: white;
+    border: 2px solid white;
+}
+
+/* main page */
+
+.main-image-wrapper {
+    background-image: url("https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    width: 50%;
+    min-height: 300px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+.search-bar {
+    padding: 10px 15px;
+    color:black;
+}
+.label-icon {
+    color:black;
+}
+.recipe-display {
+    height: 250px;
+    
+}
+
+/* Recipe page */
+
+.recipe-button {
+    margin-top: 30px;
+}
+
+/* cuisines */
+
+.btn-cuisine {
+    margin-left:10px;
+}

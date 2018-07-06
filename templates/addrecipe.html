@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block content %}
+<h3 class="page-title">Add your own recipe</h3>
+<div class="row">
+    <form action="{{ url_for('insert_recipe') }}" method="POST" class="col s12">
+        <div class="row">
+            <div class="input-field col s4">
+                <i class="material-icons prefix">person</i>
+                <input id="person_name" name="person_name" type="text">
+                <label for="icon_prefix">Your Name</label>
+            </div>
+            <div class="input-field col s4">
+                <i class="material-icons prefix">assignment</i>
+                <input id="recipe_name" name="recipe_name" type="text">
+                <label for="icon_prefix">Name of your dish?</label>
+            </div>
+            <div class="input-field col s4">
+                <i class="material-icons prefix">poll</i>
+                <select id="cuisine" name="cuisine_name">
+                  <option value="" disabled selected>Choose Cuisine</option>
+                  {% for i in cuisine %}
+                      <option value="{{i.cuisine_name}}">{{i.cuisine_name}}</option>
+                  {% endfor %}
+                </select>
+                <label>Choose a Cuisine</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s3">
+                <i class="material-icons prefix">group</i>
+                <input id="serves" name="serves" type="text">
+                <label for="icon_prefix">Serves</label>
+            </div>
+            <div class="input-field col s3">
+                <i class="material-icons prefix">whatshot</i>
+                <input id="serves" name="temp" type="text">
+                <label for="icon_prefix">Oven Tempeture</label>
+            </div>
+            <div class="input-field col s3">
+                <i class="material-icons prefix">whatshot</i>
+                <input id="cook_time" name="cook_time" type="text">
+                <label for="icon_prefix">Amount of cooking time?</label>
+            </div>
+            <div class="input-field col s3">
+                <i class="material-icons prefix">timelapse</i>
+                <input id="prep_time" name="prep_time" type="text">
+                <label for="icon_prefix">Preparation time?</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">subject</i>
+                <textarea name="ingredients" id="ingredients" class="materialize-textarea"></textarea>
+                <label for="icon_telephone">Ingredients needed?</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">subject</i>
+                <textarea name="cook_method" id="cook_method" class="materialize-textarea"></textarea>
+                <label for="icon_telephone">Method for cooking</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="file-field input-field col s12">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" multiple>
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" name="photo" type="text" placeholder="Upload a photo of your dish">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light recipe-button" type="submit">Add Recipe
+                <i class="material-icons right prefix">playlist_add</i>
+             </button>
+        </div>
+    </form>
+</div>
+    
+{% endblock%}

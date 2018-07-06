@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+<h3 class="page-title">Cuisine</h3>
+<div class="row">
+    {% for categorie in cuisine %}
+    <div class="col s4">
+        <div class="card small blue-grey darken-1">
+            <div class="card-image">
+            <img src={{ categorie.cuisine_photo }}>
+        </div>
+        <div class="card-content white-text">
+            <span class="card-title">{{ categorie.cuisine_name }}</span>
+        </div>
+        <div class="card-action">
+            <a href="#">View Recipes</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+<div>
+    <p class="add-cuisine">Cant see the cuisine you want, add one here<a href="{{ url_for("add_cuisine")}}" class="btn-floating btn-small waves-effect waves-light blue btn-cuisine"><i class="material-icons">add</i></a>
+    </p>
+</div>
+
+{% endblock %}
