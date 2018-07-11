@@ -1,9 +1,23 @@
 import os
+import pymysql
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
+""" connect the my sql database """
+
+username = os.getenv('C9_USER')
+
+# Connect to the database
+connection = pymysql.connect(host='localhost',
+                             user=username,
+                             password='',
+                             db='recipe_website')
+
 app = Flask(__name__)
+
+""" connent to MONGO DATABASE """
+
 app.config["MONGO_DBNAME"] = "recipes"
 app.config["MONGO_URI"] = "mongodb://russ_recipe:recipe1@ds119651.mlab.com:19651/recipes"
 
@@ -20,6 +34,20 @@ def main():
     recipes_list = [recipe for recipe in _all_recipes]
     return render_template("main.html", recipes=recipes_list)
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+    
+@app.route("/register")
+def register():
+    
+    return render_template("register.html")
+    
+    
+@app.route("/your_recipes")
+def your_recipes():
+    
+    return render_template("your_recipes.html")
 """ CRUD for recipes """
 
 @app.route("/add_recipe")

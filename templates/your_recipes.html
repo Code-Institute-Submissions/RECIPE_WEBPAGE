@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block content %}
+<div>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+<div class="responsive-img main-image-wrapper"></div>
+<div class="row">
+    <div class="card">
+        <div class="card-content">
+            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+        </div>
+        <div class="card-tabs">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#test4">Information</a></li>
+                <li class="tab"><a class="active" href="#test5">Ingredients</a></li>
+                <li class="tab"><a href="#test6">Method</a></li>
+            </ul>
+        </div>
+        <div class="card-content grey lighten-4">
+            <div id="test4">Test 1</div>
+            <div id="test5">Test 2</div>
+            <div id="test6">Test 3</div>
+        </div>
+    </div>
+    <button class="btn btn-outline-success my-2 my-sm-0 blue" type="submit">Edit Recipe</button>
+    <button class="btn btn-outline-success my-2 my-sm-0 red" type="submit">Delete Recipe</button>
+</div>
+</div>
+
+{% endblock %}

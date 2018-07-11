@@ -5,12 +5,12 @@
         <div class="row">
             <div class="input-field col s4">
                 <i class="material-icons prefix">person</i>
-                <input id="person_name" name="person_name" type="text">
+                <input id="person_name" name="person_name" type="text" class="validate" class="validate" required>
                 <label for="icon_prefix">Your Name</label>
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">assignment</i>
-                <input id="recipe_name" name="recipe_name" type="text">
+                <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
                 <label for="icon_prefix">Name of your dish?</label>
             </div>
             <div class="input-field col s4">
@@ -18,7 +18,7 @@
                 <select id="cuisine" name="cuisine_name">
                   <option value="" disabled selected>Choose Cuisine</option>
                   {% for i in cuisine %}
-                      <option value="{{i.cuisine_name}}">{{i.cuisine_name}}</option>
+                      <option value="{{i.cuisine_name}}">{{i.cuisine_name}}</option class="validate" required>
                   {% endfor %}
                 </select>
                 <label>Choose a Cuisine</label>
@@ -27,36 +27,36 @@
         <div class="row">
             <div class="input-field col s3">
                 <i class="material-icons prefix">group</i>
-                <input id="serves" name="serves" type="text">
+                <input id="serves" name="serves" type="text" class="validate" required>
                 <label for="icon_prefix">Serves</label>
             </div>
             <div class="input-field col s3">
                 <i class="material-icons prefix">whatshot</i>
-                <input id="serves" name="temp" type="text">
+                <input id="serves" name="temp" type="text" class="validate" required>
                 <label for="icon_prefix">Oven Tempeture</label>
             </div>
             <div class="input-field col s3">
                 <i class="material-icons prefix">whatshot</i>
-                <input id="cook_time" name="cook_time" type="text">
+                <input id="cook_time" name="cook_time" type="text" class="validate" required>
                 <label for="icon_prefix">Amount of cooking time?</label>
             </div>
             <div class="input-field col s3">
                 <i class="material-icons prefix">timelapse</i>
-                <input id="prep_time" name="prep_time" type="text">
+                <input id="prep_time" name="prep_time" type="text" class="validate" required>
                 <label for="icon_prefix">Preparation time?</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">subject</i>
-                <textarea name="ingredients" id="ingredients" class="materialize-textarea"></textarea>
+                <textarea name="ingredients" id="ingredients" class="materialize-textarea"></textarea class="validate" required>
                 <label for="icon_telephone">Ingredients needed?</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">subject</i>
-                <textarea name="cook_method" id="cook_method" class="materialize-textarea"></textarea>
+                <textarea name="cook_method" id="cook_method" class="materialize-textarea"></textarea class="validate" required>
                 <label for="icon_telephone">Method for cooking</label>
             </div>
         </div>

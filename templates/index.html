@@ -9,11 +9,13 @@
 
 <body>
     <header id="main-login-page">
-    <h1><span class="little">Little</span> Recipes</h1>
-    <p>Hundreds of recipes at your finger tips</p>
-    <a href={{ url_for("main") }} class="waves-effect waves-teal btn-flat main-button">Explore</a>
+        <h1><span class="little">Little</span> Recipes</h1>
+        <p>Hundreds of recipes at your finger tips</p>
+        <a href="{{ url_for('login') }}" class="waves-effect waves-light btn login-button" type="submit"><i class="material-icons left">dialpad</i>Login</a>
+        <a href="{{ url_for('register') }}" class="waves-effect waves-light btn login-button blue" type="submit"><i class="material-icons left">account_circle</i>Signup</a>
+
     </header>
-    
+
 
 
 
