@@ -1,10 +1,10 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, flash
 import pymysql
 
 
 app = Flask(__name__)
-
+app.secret_key="some secret"
 
 """ connect the my sql database """
 
@@ -22,29 +22,61 @@ connection = pymysql.connect(host='localhost',
 def index():
     return render_template("index.html")
 
+@app.route("/register", methods=["POST","GET"])
+def register():
+
+    if request.method == "POST":
+        user_name = request.form["name"]
+        
+        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            user = cursor.execute("SELECT * FROM users WHERE name=%s", {user_name})
+            
+            if user != 0:
+                flash("Sorry this username is taken", "red black-text lighten-2") 
+                cursor.close()
+                
+            else:
+                if request.form["password"] == request.form["re-enter"]:
+                    cursor.execute("INSERT INTO users(name, password) VALUES(%s, %s)", (request.form["name"], request.form["password"]))
+                    connection.commit()
+                    
+                    flash("congratulations you can now login", "green black-text")
+                    
+                else:
+                    flash("passwords not the same")
+                    cursor.close()
+                    
+    return render_template("register.html")
+    
+@app.route("/login", methods=["POST","GET"])
+def login():
+    
+    if request.method == "POST":
+        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            user_name = request.form["name"]
+            password = request.form["password"]
+            user = cursor.execute("SELECT * FROM users WHERE name=%s", {user_name})
+            
+            if user > 0:
+                row = cursor.fetchone()
+                user_password = row["password"]
+                
+                if password == user_password:
+                    
+                    return render_template("main.html")  
+                    
+                else:
+                    flash("passwords not matched", "red black-text lighten-2")
+                    cursor.close()
+            else:
+                flash("Sorry username not found", "red black-text lighten-2")
+                cursor.close()
+                
+    return render_template("login.html")
+    
 @app.route("/main")
 def main():
     return render_template("main.html")
-
-@app.route("/login", methods=["POST","GET"])
-def login():
-
-    return render_template("login.html")
-
-@app.route("/register", methods=["POST","GET"])
-def register():
-    if request.method == "POST":
-        if request.form["password"] == request.form["re-enter"]:
-            with connection.cursor() as cursor:
-                name = request.form["name"] 
-                password = request.form["password"]
-                cursor.execute("INSERT INTO users(name, password) VALUES(%s, %s)", (name, password))
-                connection.commit()
-        else:
-            print("sorry passwords dont match")
-        # return render_template("login.html")
-    return render_template("register.html")
-    
     
 @app.route("/your_recipes")
 def your_recipes():
