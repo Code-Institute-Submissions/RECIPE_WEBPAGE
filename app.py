@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, flash
+from flask import Flask, render_template, redirect, request, url_for, flash, session
 import pymysql
 
 
@@ -14,7 +14,7 @@ username = os.getenv('C9_USER')
 connection = pymysql.connect(host='localhost',
                              user=username,
                              password='',
-                             db='recipe_website')
+                             db='RECIPES')
 
 
 @app.route("/")
@@ -26,15 +26,15 @@ def index():
 def register():
 
     if request.method == "POST":
-        user_name = request.form["name"]
+        username = request.form["name"]
         
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-            user = cursor.execute("SELECT * FROM users WHERE name=%s", {user_name})
+            user = cursor.execute("SELECT * FROM users WHERE name=%s", [username])
             
             if user != 0:
                 flash("Sorry this username is taken", "red black-text lighten-2") 
                 cursor.close()
-                
+
             else:
                 if request.form["password"] == request.form["re-enter"]:
                     cursor.execute("INSERT INTO users(name, password) VALUES(%s, %s)", (request.form["name"], request.form["password"]))
@@ -53,18 +53,18 @@ def login():
     
     if request.method == "POST":
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-            user_name = request.form["name"]
+            username = request.form["name"]
             password = request.form["password"]
-            user = cursor.execute("SELECT * FROM users WHERE name=%s", {user_name})
+            user = cursor.execute("SELECT * FROM users WHERE name=%s", [username])
             
             if user > 0:
                 row = cursor.fetchone()
                 user_password = row["password"]
                 
                 if password == user_password:
+                    session['name'] = username
                     
-                    return render_template("main.html")  
-                    
+                    return render_template("main.html")
                 else:
                     flash("passwords not matched", "red black-text lighten-2")
                     cursor.close()
@@ -78,21 +78,35 @@ def login():
 def main():
     return render_template("main.html")
     
-@app.route("/your_recipes")
+@app.route("/your_recipes", methods=["POST", "GET"])
 def your_recipes():
     
     return render_template("your_recipes.html")
+    
+    
 """ CRUD for recipes """
 
-@app.route("/add_recipe")
+@app.route("/add_recipe/", methods=["POST", "GET"])
 def add_recipe():
-    return render_template("addrecipe.html")
-    
-@app.route("/insert_recipe", methods=["POST"])
-def insert_recipe():
-    return redirect( {{ url_for("main") }})
+    if request.method == "POST":
+        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            cuisine = "spanish"
+            recipe_name = request.form["recipe_name"]
+            serves = request.form["serves"]
+            temp = request.form["temp"]
+            time = request.form["cook_time"]
+            prep = request.form["prep_time"]
+            ingredients = request.form["ingredients"]
+            method = request.form["cook_method"]
+            
+            cursor.execute("INSERT INTO recipe(recipe_name, cuisine, serves, temp, time, prep, ingredients, method) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (recipe_name, cuisine, serves, temp, time, prep, ingredients, method))
+            connection.commit()
+            
+        flash("Congratulations your recipe was added", "blue black-text lighten-2")
+        return redirect(url_for("your_recipes"))
+    return render_template("add_recipe.html")
 
-""" CRUD for cuisine """
+
 
 @app.route("/cuisine")
 def cuisine():
