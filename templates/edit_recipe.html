@@ -1,0 +1,80 @@
+{% extends "base.html" %} {% block content %}
+
+<h3 class="page-title">EDIT <small>{{ recipe_details.recipe_name }}</small> </h3>
+<div class="row">
+    <form method="POST" enctype=multipart/form-data class="col s12">
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">assignment</i>
+                <input id="recipe_name" name="recipe_name" type="text" class="validate" value="{{ recipe_details.recipe_name}}">
+                <label for="icon_prefix">Enter recipe nam</label>
+            </div>
+            <!--<div class="input-field col s4">-->
+            <!--    <i class="material-icons prefix">poll</i>-->
+            <!--    <select id="cuisine" name="cuisine_name">-->
+            <!--      <option value="" disabled selected>Choose Cuisine</option>-->
+            <!--      {% for i in cuisine %}-->
+            <!--          <option value="{{i.cuisine_name}}">{{i.cuisine_name}}</option class="validate">-->
+            <!--      {% endfor %}-->
+            <!--    </select>-->
+            <!--    <label>Choose a Cuisine</label>-->
+            <!--</div>-->
+            <div class="input-field col s6">
+                <i class="material-icons prefix">group</i>
+                <input id="serves" name="serves" type="number" class="validate" value="{{ recipe_details.serves }}">
+                <label for="icon_prefix">Serves?</label>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="input-field col s4">
+                <i class="material-icons prefix">whatshot</i>
+                <input id="serves" name="temp" type="number" class="validate" value="{{ recipe_details.temp }}">
+                <label for="icon_prefix">Oven Tempeture</label>
+            </div>
+            <div class="input-field col s4">
+                <i class="material-icons prefix">whatshot</i>
+                <input id="cook_time" name="cook_time" type="number" class="validate" value="{{ recipe_details.time }}">
+                <label for="icon_prefix">Amount of cooking time? (mins)</label>
+            </div>
+            <div class="input-field col s4">
+                <i class="material-icons prefix">timelapse</i>
+                <input id="prep_time" name="prep_time" type="number" class="validate" value="{{ recipe_details.prep }}">
+                <label for="icon_prefix">Preparation time? (mins)</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">subject</i>
+                <textarea name="ingredients" id="ingredients" class="materialize-textarea"></textarea class="validate" value="{{ recipe_details.ingredients }}">
+                <label for="icon_telephone">Ingredients : {{ recipe_details.ingredients }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">subject</i>
+                <textarea name="cook_method" id="cook_method" class="materialize-textarea"></textarea class="validate" value="{{ recipe_details.method }}">
+                <label for="icon_telephone">Method : {{ recipe_details.method }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" name=file value="{{ recipe_details.image }}">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" value="{{ recipe_details.image }}">
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light recipe-button" type="submit">Update Recipe
+                <i class="material-icons right prefix">playlist_add</i>
+             </button>
+        </div>
+    </form>
+</div>
+ 
+{% endblock%}
