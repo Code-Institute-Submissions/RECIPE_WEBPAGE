@@ -125,13 +125,15 @@ def add_recipe():
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
             
             """get id of username"""
+            
             username = session['name']
             userId = cursor.execute("SELECT id FROM USERS WHERE name=%s", username)
             usersId = cursor.fetchone()
             
             """post recipe form into database"""
-            cuisine = "english"
+            
             recipe_name = request.form["recipe_name"]
+            cuisine = "english"
             serves = request.form["serves"]
             temp = request.form["temp"]
             time = request.form["cook_time"]
@@ -169,12 +171,67 @@ def add_recipe():
         return redirect(url_for("your_recipes", filename=filename))
     return render_template("add_recipe.html")
 
-# @app.route("/delete_recipe/")
-# def delete_recipe(recipe_id):
+
+@app.route("/edit_recipe/<int:id>", methods=["GET","POST"])
+def edit_recipe(id):
     
-#     all_recipes = cursor.execute("SELECT id FROM USERS WHERE name=%s", username)
+    """get recipe to update by id"""
     
-#     usersId = cursor.fetchone()
+    with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+        username = session['name']
+        userId = cursor.execute("SELECT id FROM USERS WHERE name=%s", username)
+        usersId = cursor.fetchone()
+        
+        recipeId = cursor.execute("SELECT * FROM RECIPES WHERE id = %s", id)
+        recipesId = cursor.fetchone()
+        
+        if request.method == "POST":
+           
+            """photos upload handler"""
+             
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                flash('please upload photo')
+                return redirect(request.url)
+            file = request.files['file']
+            # if user does not select file, browser also
+            # submit a empty part without filename
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                
+                
+            Image = filename 
+            
+            # uplaod file variable images = filename for uploading to database.
+            
+            update_list = [(request.form["recipe_name"], 
+                            "english", 
+                            request.form["serves"], 
+                            request.form["temp"], 
+                            request.form["cook_time"], 
+                            request.form["prep_time"], 
+                            request.form["ingredients"], 
+                            request.form["cook_method"])]
+          
+            cursor.execute("UPDATE RECIPES SET recipe_name=%s, cuisine=%s, serves=%s, temp=%s, time=%s, prep=%s, ingredients=%s, method=%s, image=Image WHERE id=%s", (update_list, id))
+            
+            connection.commit()
+        
+    return render_template("edit_recipe.html", recipe_details=recipesId)
+
+@app.route("/delete_recipes/<int:id>/")
+def delete_recipe(id):
+
+    with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+        
+        delete_recipe = cursor.execute("DELETE FROM RECIPES WHERE id = %s", id)
+        connection.commit()
+        
+    return redirect(url_for("your_recipes"))
 
 @app.route("/cuisine")
 def cuisine():

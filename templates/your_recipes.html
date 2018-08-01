@@ -1,18 +1,30 @@
 {% extends "base.html" %} {% block content %}
-{% for i in your_recipes %}
-<ul class="collapsible" data-collapsible="accordion">
-        <li>
-            <div class="collapsible-header">
-                <div class="col s3">
-                    <i class="large material-icons">apps</i>
-                    <a href="/your_recipes/{{ i.id }}" class="waves-effect waves-light btn btn_small">Edit</a>
-                    <a href="/your_recipes/{{ i.id }}" class="waves-effect red btn btn_small">Delete</a>
-                </div>
-                <div class=" recipes_header col s9">
-                    <strong class="recipe_title ">{{ i.recipe_name }}</strong>
-                </div>
-            </div>
-        </li>
-    </ul>
-{% endfor %}
-{% endblock %}
+<h4>List of your recipes</h4>
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Recipe</th>
+            <th>Date / Time</th>
+            <th>Rating</th>
+        </tr>
+    </thead>
+   
+    <tbody>
+         {% for i in your_recipes %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.recipe_name }}</td>
+            <td>{{ i.date_entered }}</td>
+            <td>rating to be displayed</td>
+            <td><a href="/edit_recipe/{{ i.id }}" class="waves-effect waves-light btn btn_small">Edit</a>
+                <a href="/delete_recipes/{{ i.id }}" class="waves-effect red btn btn_small">Delete</a>
+            </td>
+        </tr>
+         {% endfor %}
+    </tbody>
+   
+</table>
+
+<a href={{ url_for( 'add_recipe') }} class="waves-effect blue btn btn_small">Add a recipe</a>
+ {% endblock %}
