@@ -80,11 +80,18 @@
     
 }
 
-/* Recipe page */
+/* Recipe pages */
 
 .recipe-button {
     margin-top: 30px;
+} 
+.recipes_header {
+    margin:5px 0 0 20px;
+}    
+.recipe_title {
+    font-size: 1.5em;
 }
+
 
 /* cuisines */
 

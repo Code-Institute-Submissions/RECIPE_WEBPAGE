@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <h3 class="page-title">Add your own recipe</h3>
 <div class="row">
-    <form method="POST" class="col s12">
+    <form method="POST" enctype=multipart/form-data class="col s12">
         <div class="row">
             <div class="input-field col s6">
                 <i class="material-icons prefix">assignment</i>
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="row">
-          
+
             <div class="input-field col s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="serves" name="temp" type="number" class="validate" required>
@@ -34,12 +34,12 @@
             <div class="input-field col s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="cook_time" name="cook_time" type="number" class="validate" required>
-                <label for="icon_prefix">Amount of cooking time?</label>
+                <label for="icon_prefix">Amount of cooking time? (mins)</label>
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">timelapse</i>
                 <input id="prep_time" name="prep_time" type="number" class="validate" required>
-                <label for="icon_prefix">Preparation time?</label>
+                <label for="icon_prefix">Preparation time? (mins)</label>
             </div>
         </div>
         <div class="row">
@@ -56,17 +56,17 @@
                 <label for="icon_telephone">Method for cooking</label>
             </div>
         </div>
-        <!--<div class="row">-->
-        <!--    <div class="file-field input-field col s12">-->
-        <!--        <div class="btn">-->
-        <!--            <span>File</span>-->
-        <!--            <input type="file" multiple>-->
-        <!--        </div>-->
-        <!--        <div class="file-path-wrapper">-->
-        <!--            <input class="file-path validate" name="photo" type="text" placeholder="Upload a photo of your dish">-->
-        <!--        </div>-->
-        <!--    </div>-->
-        <!--</div>-->
+        <div class="row">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" name=file>
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" value="Upload" required>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <button class="btn waves-effect waves-light recipe-button" type="submit">Add Recipe
                 <i class="material-icons right prefix">playlist_add</i>

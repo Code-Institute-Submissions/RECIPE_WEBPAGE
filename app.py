@@ -1,26 +1,34 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 import pymysql
+from werkzeug.utils import secure_filename
+from sql_connection import connection_import
 
+"""upload path to store photos submitted from recipes"""
+
+UPLOAD_FOLDER = './images'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
 app.secret_key="some secret"
 
-""" connect the my sql database """
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-username = os.getenv('C9_USER')
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+""" connection to my sql database """
 
 # Connect to the database
-connection = pymysql.connect(host='localhost',
-                             user=username,
-                             password='',
-                             db='RECIPES')
-
+connection = connection_import
 
 @app.route("/")
 @app.route("/index")
 def index():
     return render_template("index.html")
+
+"""login and register pages"""
 
 @app.route("/register", methods=["POST","GET"])
 def register():
@@ -29,18 +37,18 @@ def register():
         username = request.form["name"]
         
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-            user = cursor.execute("SELECT * FROM users WHERE name=%s", [username])
+            user = cursor.execute("SELECT * FROM USERS WHERE name=%s", [username])
             
             if user != 0:
-                flash("Sorry this username is taken", "red black-text lighten-2") 
+                flash("Sorry this username is taken, please try again", "red black-text lighten-2") 
                 cursor.close()
 
             else:
                 if request.form["password"] == request.form["re-enter"]:
-                    cursor.execute("INSERT INTO users(name, password) VALUES(%s, %s)", (request.form["name"], request.form["password"]))
+                    cursor.execute("INSERT INTO USERS(name, password) VALUES(%s, %s)", (request.form["name"], request.form["password"]))
                     connection.commit()
                     
-                    flash("congratulations you can now login", "green black-text")
+                    flash("username has been registered, you can now login", "green black-text")
                     
                 else:
                     flash("passwords not the same")
@@ -55,7 +63,7 @@ def login():
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
             username = request.form["name"]
             password = request.form["password"]
-            user = cursor.execute("SELECT * FROM users WHERE name=%s", [username])
+            user = cursor.execute("SELECT * FROM USERS WHERE name=%s", [username])
             
             if user > 0:
                 row = cursor.fetchone()
@@ -64,7 +72,7 @@ def login():
                 if password == user_password:
                     session['name'] = username
                     
-                    return render_template("main.html")
+                    return redirect(url_for("main"))
                 else:
                     flash("passwords not matched", "red black-text lighten-2")
                     cursor.close()
@@ -72,25 +80,57 @@ def login():
                 flash("Sorry username not found", "red black-text lighten-2")
                 cursor.close()
                 
+        
     return render_template("login.html")
+    
+    
+"""main website templates"""    
     
 @app.route("/main")
 def main():
-    return render_template("main.html")
+    with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+        
+        recipes = cursor.execute("SELECT * FROM RECIPES")
+        
+        all_recipes = cursor.fetchall()
+        
+        
+    return render_template("main.html", all_recipes=all_recipes)
+    
+    
     
 @app.route("/your_recipes", methods=["POST", "GET"])
 def your_recipes():
+    # stuck getting id from results returned.
     
-    return render_template("your_recipes.html")
-    
+    username = session["name"]
+
+    with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+        
+        user = cursor.execute("SELECT id FROM USERS WHERE name =%s", username)
+        userId = cursor.fetchone()["id"]
+        
+        recipes = cursor.execute("SELECT * FROM RECIPES WHERE user_id = %s", userId)
+        filtered_recipes = cursor.fetchall()
+        
+    return render_template("your_recipes.html", your_recipes = filtered_recipes )
+
     
 """ CRUD for recipes """
 
 @app.route("/add_recipe/", methods=["POST", "GET"])
 def add_recipe():
+    
     if request.method == "POST":
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-            cuisine = "spanish"
+            
+            """get id of username"""
+            username = session['name']
+            userId = cursor.execute("SELECT id FROM USERS WHERE name=%s", username)
+            usersId = cursor.fetchone()
+            
+            """post recipe form into database"""
+            cuisine = "english"
             recipe_name = request.form["recipe_name"]
             serves = request.form["serves"]
             temp = request.form["temp"]
@@ -99,14 +139,42 @@ def add_recipe():
             ingredients = request.form["ingredients"]
             method = request.form["cook_method"]
             
-            cursor.execute("INSERT INTO recipe(recipe_name, cuisine, serves, temp, time, prep, ingredients, method) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (recipe_name, cuisine, serves, temp, time, prep, ingredients, method))
+            
+            """photos upload handler"""
+             
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                flash('please upload photo')
+                return redirect(request.url)
+            file = request.files['file']
+            # if user does not select file, browser also
+            # submit a empty part without filename
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                
+                
+            Image = filename
+            
+            # uplaod file variable images = filename for uploading to database.
+            
+            cursor.execute("INSERT INTO RECIPES(user_id, recipe_name, cuisine, serves, temp, time, prep, ingredients, method, image) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)", (usersId["id"], recipe_name, cuisine, serves, temp, time, prep, ingredients, method, Image))
+            
             connection.commit()
             
-        flash("Congratulations your recipe was added", "blue black-text lighten-2")
-        return redirect(url_for("your_recipes"))
+        flash("Thank you for adding your recipe", "blue black-text lighten-2")
+        return redirect(url_for("your_recipes", filename=filename))
     return render_template("add_recipe.html")
 
-
+# @app.route("/delete_recipe/")
+# def delete_recipe(recipe_id):
+    
+#     all_recipes = cursor.execute("SELECT id FROM USERS WHERE name=%s", username)
+    
+#     usersId = cursor.fetchone()
 
 @app.route("/cuisine")
 def cuisine():
@@ -119,6 +187,13 @@ def add_cuisine():
 @app.route("/insert_cuisine", methods=["POST"])
 def insert_cuisine():
     return redirect( {{ url_for("cuisine") }})
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

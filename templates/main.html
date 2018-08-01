@@ -9,10 +9,10 @@
 </div>
 <div class="responsive-img main-image-wrapper"></div>
 <div class="row">
-    {% for recipe in recipes %}
-    <div class="card col s12 recipe-display">
+    {% for recipe in all_recipes %}
+    <div class="card col s4 recipe-display">
         <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src={{ recipe.photo }}>
+            <img class="activator" src="/images/{{ recipe.image }}">
         </div>
         <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">{{ recipe.recipe_name }}<i class="material-icons right">more_vert</i></span>
@@ -20,11 +20,11 @@
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">{{ recipe.recipe_name }}<i class="material-icons right">close</i></span>
-            <p>{{ recipe.prep_time }}</p>
-            <p>{{ recipe.cook_method }}</p>
+            <p>Preparation time: {{ recipe.prep }} mins</p>
+            <p>Serves: {{ recipe.serves }} people</p>
+            <p>Cooking time: {{ recipe.time }} </p>
         </div>
     </div>
     {% endfor %}
 </div>
-
 {% endblock %}
