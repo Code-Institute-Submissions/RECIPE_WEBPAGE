@@ -21,7 +21,8 @@
     font-size: 0.5em;
     color: white;
 }
-.page-title{
+
+.page-title {
     margin: 20px 0;
 }
 
@@ -42,7 +43,7 @@
 #main-login-page h1 {
     color: #f9fbff;
     margin-bottom: 40px;
-    
+
 }
 
 #main-login-page p {
@@ -59,56 +60,86 @@
 /* main page */
 
 /*.main-image-wrapper {*/
+
 /*    background-image: url("https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");*/
+
 /*    width: 50%;*/
+
 /*    min-height: 300px;*/
+
 /*    background-size: cover;*/
+
 /*    background-repeat: no-repeat;*/
+
 /*    background-position: center;*/
-    
+
 /*}*/
 
 .search-bar {
     padding: 10px 15px;
-    color:black;
-}
-.label-icon {
-    color:black;
-}
-.recipe-display {
-    height: 250px;
-    
+    color: black;
 }
 
+.label-icon {
+    color: black;
+}
+.recipe-display {
+    height: auto;
+    max-width: 250px !important;
+    margin: 5px 10px;
+    box-sizing: border-box;
+    
+}
+.recipe_image_card{
+    max-height:150px;
+    max-width: auto;
+}
 /* Recipe pages */
 
 .recipe-button {
     margin-top: 30px;
-} 
+}
+
 .recipes_header {
-    margin:5px 0 0 20px;
-}    
+    margin: 5px 0 0 20px;
+}
+
 .recipe_title {
     font-size: 1.5em;
 }
 
+/*main recipe page view*/
+
+.recipe_image {
+    height: 350px;
+    width: 350px;
+    background-color: pink;
+}
+
+.recipe_titles {
+    text-align: center;
+}
 
 /* cuisines */
 
 .btn-cuisine {
-    margin-left:10px;
+    margin-left: 10px;
 }
+
 .login-wrapper {
     width: 500px;
-    margin:auto;
+    margin: auto;
 }
+
 .login-page {
     width: auto;
     text-align: center;
 }
+
 .login-button {
-    margin-top:20px;
+    margin-top: 20px;
 }
-.login-signup{
+
+.login-signup {
     margin-top: 20px;
 }

@@ -1,20 +1,21 @@
 {% extends "base.html" %} {% block content %}
-<h3 class="page-title">Cuisine</h3>
+<h4 class="page-title">Cuisine</h4>
 <div class="row">
-    {% for categorie in cuisine %}
-    <div class="col s4">
+{% for i in cuisines %}
+<div class="col s4">
         <div class="card small blue-grey darken-1">
             <div class="card-image">
-            <img src={{ categorie.cuisine_photo }}>
+            <img src="/static/images/{{ i.image }}" alt="awaiting images">
         </div>
         <div class="card-content white-text">
-            <span class="card-title">{{ categorie.cuisine_name }}</span>
+            <span class="card-title">{{ i.CUISINE }}</span>
         </div>
         <div class="card-action">
-            <a href="#">View Recipes</a>
+           <a href="/view_cuisine/{{ i.cuisine }}" class="waves-effect waves-light btn btn_small">View Recipes</a>
+
         </div>
     </div>
-</div>
+</div>  
 {% endfor %}
 </div>
 <div>

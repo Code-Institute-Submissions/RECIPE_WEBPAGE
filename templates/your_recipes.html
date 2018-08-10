@@ -9,22 +9,23 @@
             <th>Rating</th>
         </tr>
     </thead>
-   
+
     <tbody>
-         {% for i in your_recipes %}
+        {% for i in your_recipes %}
         <tr>
             <td>{{ i.id }}</td>
             <td>{{ i.recipe_name }}</td>
             <td>{{ i.date_entered }}</td>
             <td>rating to be displayed</td>
-            <td><a href="/edit_recipe/{{ i.id }}" class="waves-effect waves-light btn btn_small">Edit</a>
+            <td>
+                <a href="/view_recipe/{{ i.id }}" class="waves-effect blue btn btn_small">View</a>
+                <a href="/edit_recipe/{{ i.id }}" class="waves-effect waves-light btn btn_small">Edit</a>
                 <a href="/delete_recipes/{{ i.id }}" class="waves-effect red btn btn_small">Delete</a>
             </td>
         </tr>
-         {% endfor %}
+        {% endfor %}
     </tbody>
-   
+
 </table>
 
-<a href={{ url_for( 'add_recipe') }} class="waves-effect blue btn btn_small">Add a recipe</a>
- {% endblock %}
+<a href={{ url_for( 'add_recipe') }} class="waves-effect blue btn btn_small">Add a recipe</a> {% endblock %}

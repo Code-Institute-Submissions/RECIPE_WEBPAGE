@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<div class="row recipe_titles">
+    <div class="recipe_image col s5 push-s7"></div>
+    <div class="col s7 pull-s5">
+        <h3>{{ recipe.recipe_name }}</h3>
+        <p>How many serves : {{ recipe.serves }}</p>
+        <p>Oven tempeture : {{ recipe.temp }}</p>
+        <p>Amount of cooking time : {{ recipe.time }}</p>
+        <p>How long to prepare : {{ recipe.prep }}</p>
+    </div>
+</div>
+<div class="row ">
+    <div>
+        <p class="col s6">
+            <h3> Ingredients</h3>
+            Ingredients : {{ recipe.ingredients}}
+        </p>
+    </div>
+    <div>
+        <p class="col s6">
+            <h3> Method </h3>
+            Method : {{ recipe.method }}
+        </p>
+    </div>
+</div>
+
+
+{% endblock %}

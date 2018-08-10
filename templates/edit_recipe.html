@@ -4,22 +4,17 @@
 <div class="row">
     <form method="POST" enctype=multipart/form-data class="col s12">
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s4">
                 <i class="material-icons prefix">assignment</i>
                 <input id="recipe_name" name="recipe_name" type="text" class="validate" value="{{ recipe_details.recipe_name}}">
-                <label for="icon_prefix">Enter recipe nam</label>
+                <label for="icon_prefix">Enter recipe name</label>
             </div>
-            <!--<div class="input-field col s4">-->
-            <!--    <i class="material-icons prefix">poll</i>-->
-            <!--    <select id="cuisine" name="cuisine_name">-->
-            <!--      <option value="" disabled selected>Choose Cuisine</option>-->
-            <!--      {% for i in cuisine %}-->
-            <!--          <option value="{{i.cuisine_name}}">{{i.cuisine_name}}</option class="validate">-->
-            <!--      {% endfor %}-->
-            <!--    </select>-->
-            <!--    <label>Choose a Cuisine</label>-->
-            <!--</div>-->
-            <div class="input-field col s6">
+            <div class="input-field col s4">
+                <i class="material-icons prefix">assignment</i>
+                <input id="cuisine" name="cuisine" type="text" class="validate" value="{{ recipe_details.cuisine}}">
+                <label for="icon_prefix">Enter cuisine</label>
+            </div>
+            <div class="input-field col s4">
                 <i class="material-icons prefix">group</i>
                 <input id="serves" name="serves" type="number" class="validate" value="{{ recipe_details.serves }}">
                 <label for="icon_prefix">Serves?</label>
@@ -55,18 +50,6 @@
                 <i class="material-icons prefix">subject</i>
                 <textarea name="cook_method" id="cook_method" class="materialize-textarea"></textarea class="validate" value="{{ recipe_details.method }}">
                 <label for="icon_telephone">Method : {{ recipe_details.method }}</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="file-field input-field">
-                <div class="btn">
-                    <span>File</span>
-                    <input type="file" name=file value="{{ recipe_details.image }}">
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" value="{{ recipe_details.image }}">
-                </div>
-
             </div>
         </div>
         <div class="row">

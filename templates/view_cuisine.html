@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %} {% for cuisines in view_cuisines %}
+<div class="row">
+    <div class="card col s4 recipe-display">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="/images/{{ cuisines.image }}">
+        </div>
+        <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">{{ cuisines.recipe_name }}<i class="material-icons right">more_vert</i></span>
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{ cuisines.recipe_name }}<i class="material-icons right">close</i></span>
+            <p>Preparation time: {{ cuisines.prep }} mins</p>
+            <p>Serves: {{ cuisines.serves }} people</p>
+            <p>Cooking time: {{ cuisines.time }} </p>
+        </div>
+        <a href="/view_recipe/{{ cuisines.id }}" class="waves-effect waves-light btn ">View Recipe</a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
