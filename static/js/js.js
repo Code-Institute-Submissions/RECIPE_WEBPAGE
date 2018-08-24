@@ -1,42 +1,44 @@
-// functions for Materialize
-
 $(document).ready(function() {
-    $('select').material_select();
     $('.modal').modal();
+    $('.recipe-form').on('submit', function(e) {
+        let values = [];
+        $('[name=ingredient]').each(function(index, item) {
+            values.push($(item).val());
+        });
+        $('[name=ingredients]').val(values.join(','));
+        
+        let method_values = [];
+        $('[name=method]').each(function(index, item) {
+            method_values.push($(item).val());
+        });
+        $('[name=methods]').val(method_values.join(','));
+        
+    });
 });
 
 
+// <---------- Insert line for recipe form entries -------->
 
-// functions for webpage
+function addIngredient(event) {
 
-// insert new row for more ingredients to be added.
-// let ingredientsBtn = document.getElementById("ingredients-btn");
+    let list = document.getElementById("list");
+    let btn = document.getElementById("ingredients-btn");
+    let newElement = document.createElement("input");
+    newElement.setAttribute("type", "text");
+    newElement.setAttribute("name", "ingredient");
+    
+    list.insertBefore(newElement, btn);
+    
+}
 
-// function addIngredient(event){
-//     console.log(event);
-// event.stopPropagation();  
-//     let newDiv = document.createElement("div");
-//     let newInput = document.createElement("input");
-//     let menu = document.getElementById("ingredientsList").getElementsByTagName("li")[0];
-//         newDiv.classList.add("input-field");
-//         newDiv.classList.add("col");
-//         newDiv.classList.add("s6");
-//         newDiv.appendChild(newInput);
-//         menu.appendChild(newDiv);
-      
-// }
+function addMethod(e) {
 
-// if(ingredientsBtn){
-// document.addEventListener('click', addIngredient, true);
-// }
+    let list = document.getElementById("method_list");
+    let btn = document.getElementById("method-btn");
+    let newElement = document.createElement("input");
+    newElement.setAttribute("type", "text");
+    newElement.setAttribute("name", "method");
 
-// let wrapper = document.getElementById("wrapper");
+    list.insertBefore(newElement, btn);
+}
 
-// function Wrapper(event){
-
-//     console.log("main wrapper")
-// }
-
-// if(wrapper){
-// document.addEventListener('click', wrapper, true);
-// }

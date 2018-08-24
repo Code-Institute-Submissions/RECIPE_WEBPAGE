@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <h3 class="page-title">Add your own recipe</h3>
 <div class="row">
-    <form method="POST" enctype=multipart/form-data class="col s12 recipe-form">
+    <form method="POST" enctype="multipart/form-data" class="col s12 recipe-form">
         <div class="row">
             <div class="input-field col s4">
                 <i class="material-icons prefix">assignment</i>
@@ -16,54 +16,45 @@
             <div class="input-field col s4">
                 <i class="material-icons prefix">group</i>
                 <input id="serves" name="serves" type="number" class="validate" required>
-                <label for="icon_prefix">Serves</label>
+                <label for="icon_prefix">Total serving</label>
             </div>
         </div>
+        
         <div class="row">
-
             <div class="input-field col s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="serves" name="temp" type="number" class="validate" required>
                 <label for="icon_prefix">Oven Tempeture</label>
+                <span class="helper-text">example = 180</span>
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="cook_time" name="cook_time" type="number" class="validate" required>
-                <label for="icon_prefix">Amount of cooking time? (mins)</label>
+                <label for="icon_prefix">Cooking time?</label>
+                <span class="helper-text">In minutes</span>
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">timelapse</i>
                 <input id="prep_time" name="prep_time" type="number" class="validate" required>
-                <label for="icon_prefix">Preparation time? (mins)</label>
+                <label for="icon_prefix">Preperation time?</label>
+                <span class="helper-text">In minutes</span>
             </div>
         </div>
         <div class="row">
-            <ul id="ingredientsList">
-                <li>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">subject</i>
-                        <input id="ingredients" name="ingredients" type="text" class="validate" required>
-                        <label for="icon_prefix">Ingredients</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input name="ingredients" type="text" class="validate" required>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="row">
-            <button id="ingredients-btn" class="btn waves-effect waves-light">Add ingredient<i class="material-icons right">add</i></button>
-        </div>
+            <div id="list" class="input-field col s3 ">
+                 <i class="material-icons prefix">subject</i>
+                 <label for="icon_prefix">Ingredients needed</label>
+                <input type="hidden" name="ingredients" value="">
+                <input id="ingredients" name="ingredient" type="text" class="validate">
+                <a id="ingredients-btn" class="waves-effect waves-light btn-small ingredients-btn" onclick="addIngredient()"><i class="material-icons left">add</i>Add ingredient</a>
 
-        <div class="row">
-            <div class="input-field col s12">
-                <ul>
-                    <li>
-                        <i class="material-icons prefix">subject</i>
-                        <input id="method" name="method" type="text" class="validate" required>
-                        <label for="icon_prefix">Method</label>
-                    </li>
-                </ul>
+            </div>
+            <div id="method_list" class="input-field col s9">
+                <i class="material-icons prefix">subject</i>
+                <input type="hidden" name="methods" value="">
+                <input id="method" name="method" type="text" class="validate">
+                <label for="icon_prefix">Stages for cooking your dish?</label>
+                <a id="method-btn" class="waves-effect waves-light btn-small" onclick="addMethod()"><i class="material-icons left">add</i>add method</a>
             </div>
         </div>
         <div class="row">
@@ -73,11 +64,11 @@
                     <input type="file" name=file>
                 </div>
                 <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" value="Upload" required>
+                    <label>Upload a photo for your dish</label>
+                    <input class="file-path validate" type="text" value="">
                 </div>
             </div>
         </div>
-
         <div class="row">
             <button class="btn waves-effect waves-light recipe-button" type="submit">Add Recipe
                 <i class="material-icons right prefix">playlist_add</i>

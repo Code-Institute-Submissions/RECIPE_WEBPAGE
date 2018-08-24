@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <h4>List of your recipes</h4>
+
+
 <table class="highlight">
     <thead>
         <tr>
@@ -20,9 +22,19 @@
             <td>
                 <a href="/view_recipe/{{ i.id }}" class="waves-effect blue btn btn_small">View</a>
                 <a href="/edit_recipe/{{ i.id }}" class="waves-effect waves-light btn btn_small">Edit</a>
-                <a href="/delete_recipes/{{ i.id }}" class="waves-effect red btn btn_small">Delete</a>
+                <a class="waves-effect red btn modal-trigger" href="#modal1">Delete</a>
+
             </td>
         </tr>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Are you sure you want to delete {{i.recipe_name }}</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="/delete_recipe/{{ i.id }}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+            </div>
+        </div>
         {% endfor %}
     </tbody>
 

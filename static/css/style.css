@@ -59,22 +59,6 @@
 
 /* main page */
 
-/*.main-image-wrapper {*/
-
-/*    background-image: url("https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");*/
-
-/*    width: 50%;*/
-
-/*    min-height: 300px;*/
-
-/*    background-size: cover;*/
-
-/*    background-repeat: no-repeat;*/
-
-/*    background-position: center;*/
-
-/*}*/
-
 .search-bar {
     padding: 10px 15px;
     color: black;
@@ -118,6 +102,10 @@
 
 .recipe_titles {
     text-align: center;
+}
+
+.recipe-input {
+    border-bottom: none !important;
 }
 
 /* cuisines */
