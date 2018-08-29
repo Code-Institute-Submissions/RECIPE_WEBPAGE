@@ -1,28 +1,52 @@
 {% extends "base.html" %} {% block content %}
-<div class="row recipe_titles">
-    <div class="recipe_image col s5 push-s7"></div>
-    <div class="col s7 pull-s5">
-        <h3>{{ recipe.recipe_name }}</h3>
-        <p>How many serves : {{ recipe.serves }}</p>
-        <p>Oven tempeture : {{ recipe.temp }}</p>
-        <p>Amount of cooking time : {{ recipe.time }}</p>
-        <p>How long to prepare : {{ recipe.prep }}</p>
+
+<!--<div class="image-wrapper">-->
+<!--    <img class="image_view" src="/static/images/{{ recipe.image }}"></img>-->
+<!--</div>-->
+
+
+<div class="recipe_titles">
+    <div class="row">
+        <div class="col s12 recipe_title">
+            <h3>{{ recipe.recipe_name }}</h3>
+        </div>
     </div>
+    <div class="row">
+            <div class="col s4">
+                <h3> Ingredients</h3>
+                <ul>
+                    {% for ingredients in ingredient %}
+                    <li>
+                        <label>
+                        <input type="checkbox" />
+                        <span>{{ ingredients.ingredient }}</span>
+                        </label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col s8">
+                <h3> Method </h3>
+                <ul>
+                    {% for method in methods %}
+                    <li>
+                        <label>
+                        <input type="checkbox" />
+                        <span>{{ method }}</span>
+                        </label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+    </div>    
 </div>
-<div class="row ">
-    <div>
-        <p class="col s6">
-            <h3> Ingredients</h3>
-            Ingredients : {{ recipe.ingredients}}
-        </p>
-        
-    </div>
-    <div>
-        <p class="col s6">
-            <h3> Method </h3>
-            Method : {{ recipe.method }}
-        </p>
-    </div>
+</div>
+<p>How many serves : {{ recipe.serves }}</p>
+<p>Oven tempeture : {{ recipe.temp }}</p>
+<p>Amount of cooking time : {{ recipe.time }}</p>
+<p>How long to prepare : {{ recipe.prep }}</p>
+</row>
 </div>
 
 

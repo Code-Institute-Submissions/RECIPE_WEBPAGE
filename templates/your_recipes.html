@@ -15,13 +15,13 @@
     <tbody>
         {% for i in your_recipes %}
         <tr>
-            <td>{{ i.id }}</td>
+            <td>{{ i.recipe_id }}</td>
             <td>{{ i.recipe_name }}</td>
             <td>{{ i.date_entered }}</td>
             <td>rating to be displayed</td>
             <td>
-                <a href="/view_recipe/{{ i.id }}" class="waves-effect blue btn btn_small">View</a>
-                <a href="/edit_recipe/{{ i.id }}" class="waves-effect waves-light btn btn_small">Edit</a>
+                <a href="/view_recipe/{{ i.recipe_id }}" class="waves-effect blue btn btn_small">View</a>
+                <a href="/edit_recipe/{{ i.recipe_id }}" class="waves-effect waves-light btn btn_small">Edit</a>
                 <a class="waves-effect red btn modal-trigger" href="#modal1">Delete</a>
 
             </td>
@@ -32,7 +32,7 @@
                 <h4>Are you sure you want to delete {{i.recipe_name }}</h4>
             </div>
             <div class="modal-footer">
-                <a href="/delete_recipe/{{ i.id }}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+                <a href="/delete_recipe/{{ i.user_id }}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
             </div>
         </div>
         {% endfor %}

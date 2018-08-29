@@ -90,6 +90,7 @@
 
 .recipe_title {
     font-size: 1.5em;
+    text-align: center;
 }
 
 /*main recipe page view*/
@@ -98,10 +99,6 @@
     height: 350px;
     width: 350px;
     background-color: pink;
-}
-
-.recipe_titles {
-    text-align: center;
 }
 
 .recipe-input {
@@ -131,3 +128,12 @@
 .login-signup {
     margin-top: 20px;
 }
+/*.image-wrapper {*/
+/*    height: 200px;*/
+/*    width: auto;*/
+/*}*/
+/*.image_view {*/
+/*    margin-top: 10px;*/
+/*    height:300px;*/
+/*    width: 300px;*/
+/*}*/

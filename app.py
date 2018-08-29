@@ -92,7 +92,7 @@ def login():
 def main():
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         
-        recipes = cursor.execute("SELECT * FROM RECIPES")
+        cursor.execute("SELECT * FROM RECIPES")
 
         all_recipes = cursor.fetchall()
         
@@ -108,9 +108,9 @@ def your_recipes():
 
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         
-        cursor.execute("SELECT id FROM USERS WHERE name =%s", username)
-        userId = cursor.fetchone()["id"]
-        
+        cursor.execute("SELECT user_id FROM USERS WHERE name =%s", username)
+        userId = cursor.fetchone()["user_id"]
+
         cursor.execute("SELECT * FROM RECIPES WHERE user_id = %s", userId)
         filtered_recipes = cursor.fetchall()
         
@@ -123,10 +123,15 @@ def your_recipes():
 @app.route("/view_recipe/<int:id>")
 def view_recipe(id):
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        cursor.execute("SELECT * FROM RECIPES WHERE id = %s", id)
+        cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", id)
         recipesId = cursor.fetchone()
         
-    return render_template("view_recipe.html", recipe = recipesId)
+        cursor.execute("SELECT * FROM INGREDIENTS WHERE recipe_id = %s", id)
+        recipes_ingredients = cursor.fetchall()
+        
+        method = recipesId["method"].split(",")
+
+    return render_template("view_recipe.html", recipe = recipesId, ingredient = recipes_ingredients, methods = method)
     
     
     
@@ -145,7 +150,7 @@ def add_recipe():
             """get id of username"""
             
             username = session['name']
-            cursor.execute("SELECT id FROM USERS WHERE name=%s", username)
+            cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
             usersId = cursor.fetchone()
        
             
@@ -180,21 +185,26 @@ def add_recipe():
             
             Image = filename
             
-            cursor.execute("INSERT INTO RECIPES(user_id, name, recipe_name, cuisine, serves, temp, time, prep, method, image) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (usersId["id"], username, recipe_name,cuisine, serves, temp, time, prep, method, Image))
+            cursor.execute("INSERT INTO RECIPES(user_id, name, recipe_name, cuisine, serves, temp, time, prep, method, image) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (usersId["user_id"], username, recipe_name,cuisine, serves, temp, time, prep, method, Image))
     
             connection.commit()
-    
+
             x = ingredient.split(",")
             
+            cursor.execute("SELECT recipe_id FROM RECIPES WHERE recipe_id=(SELECT MAX(recipe_id) FROM RECIPES)")
+            
+            recipe_id = cursor.fetchone()
+            
             for i in x:
-                cursor.execute("INSERT INTO INGREDIENTS(ingredient) VALUES(%s)", (i)) 
-                connection.commit()
+                cursor.execute("INSERT INTO INGREDIENTS(ingredient, recipe_id) VALUES(%s, %s)", (i, recipe_id["recipe_id"])) 
                 
                 
-        
+                connection.commit() 
+                
+            # cursor.execute("INSERT INTO RECIPES_INGREDIENTS (ingredients_id, recipes_id) SELECT ingredient_id, recipe_id FROM (INGREDIENTS, RECIPES)")
             
             connection.commit()
-        
+            
         flash("Thank you for adding your recipe", "blue black-text lighten-2")
     
         return redirect(url_for("your_recipes"))
@@ -208,10 +218,10 @@ def edit_recipe(id):
     
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         username = session['name']
-        userId = cursor.execute("SELECT id FROM USERS WHERE name=%s", username)
+        cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
         usersId = cursor.fetchone()
         
-        recipeId = cursor.execute("SELECT * FROM RECIPES WHERE id = %s", id)
+        cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", id)
         recipesId = cursor.fetchone()
         
         if request.method == "POST":
@@ -236,7 +246,7 @@ def delete_recipe(id):
 
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         
-        delete_recipe = cursor.execute("DELETE FROM RECIPES WHERE id = %s", id)
+        cursor.execute("DELETE FROM RECIPES WHERE user_id = %s", id)
         connection.commit()
         
     return redirect(url_for("your_recipes"))
@@ -253,8 +263,9 @@ def rate_recipe(id):
         # cursor.execute("INSERT INTO RATING(rating, recipe_id, user_id) VALUES(rating = %s, recipe_id = recipe_for_rating['id'], user_id = recipe_for_rating['user_id']", rating)
         
         # cursor.commit()
+
         
-        print(request.form["showVal"])
+        # print(request.form["showVal"])
         
         
     return redirect(url_for("main"))
@@ -267,13 +278,13 @@ def quick_add(id):
         
         username = session["name"]
        
-        cursor.execute("SELECT * FROM RECIPES WHERE id = %s", id)
+        cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", id)
         quick_add = cursor.fetchall()
         
-        cursor.execute("SELECT id FROM USERS WHERE name=%s", username)
+        cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
         newID = cursor.fetchone()
         
-        quick_add[0]['user_id'] = newID["id"]
+        quick_add[0]['user_id'] = newID["user_id"]
 
         users_id = quick_add[0]["user_id"]
         recipe_name = quick_add[0]["recipe_name"]
@@ -298,7 +309,7 @@ def quick_add(id):
 def cuisine():
     
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        select_cuisine = cursor.execute("SELECT cuisine FROM RECIPES")
+        cursor.execute("SELECT cuisine FROM RECIPES")
         cuisine = cursor.fetchall()
         
     return render_template("cuisine.html", cuisine=cuisine )
@@ -306,7 +317,7 @@ def cuisine():
 @app.route("/view_cuisine/<string:cuisine>")
 def view_cuisine(cuisine):
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        display_cuisine = cursor.execute("SELECT * FROM RECIPES WHERE cuisine = %s", cuisine)
+        cursor.execute("SELECT * FROM RECIPES WHERE cuisine = %s", cuisine)
         cuisine_view = cursor.fetchall()
 
     return render_template("view_cuisine.html", view_cuisines = cuisine_view)
