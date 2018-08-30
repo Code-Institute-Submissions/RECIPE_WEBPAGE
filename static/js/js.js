@@ -1,5 +1,8 @@
 $(document).ready(function() {
     $('.modal').modal();
+    $('.sidenav').sidenav();
+    $('.slider').slider();
+    
     $('.recipe-form').on('submit', function(e) {
         let values = [];
         $('[name=ingredient]').each(function(index, item) {
@@ -11,7 +14,7 @@ $(document).ready(function() {
         $('[name=method]').each(function(index, item) {
             method_values.push($(item).val());
         });
-        $('[name=methods]').val(method_values.join(','));
+        $('[name=methods]').val(method_values.join('-'));
         
     });
 });

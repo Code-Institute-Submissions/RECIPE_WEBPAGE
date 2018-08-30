@@ -50,7 +50,7 @@ def register():
                     
                     connection.commit()
                     
-                    flash("username has been registered, you can now login", "green black-text")
+                    return redirect(url_for("login"))
                     
                 else:
                     flash("passwords not the same")
@@ -93,8 +93,10 @@ def main():
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         
         cursor.execute("SELECT * FROM RECIPES")
-
+        
         all_recipes = cursor.fetchall()
+        
+        
         
     return render_template("main.html", all_recipes=all_recipes)
     
@@ -129,7 +131,7 @@ def view_recipe(id):
         cursor.execute("SELECT * FROM INGREDIENTS WHERE recipe_id = %s", id)
         recipes_ingredients = cursor.fetchall()
         
-        method = recipesId["method"].split(",")
+        method = recipesId["method"].split("-")
 
     return render_template("view_recipe.html", recipe = recipesId, ingredient = recipes_ingredients, methods = method)
     
@@ -200,8 +202,6 @@ def add_recipe():
                 
                 
                 connection.commit() 
-                
-            # cursor.execute("INSERT INTO RECIPES_INGREDIENTS (ingredients_id, recipes_id) SELECT ingredient_id, recipe_id FROM (INGREDIENTS, RECIPES)")
             
             connection.commit()
             
@@ -283,6 +283,9 @@ def quick_add(id):
         
         cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
         newID = cursor.fetchone()
+        
+        cursor.execute("SELECT * FROM INGREDIENTS WHERE recipe_id = %s", id)
+        ingredients = cursor.fetchall()
         
         quick_add[0]['user_id'] = newID["user_id"]
 

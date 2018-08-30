@@ -9,7 +9,7 @@
 </div>
 <div class="row recipe_wrapper">
     {% for recipe in all_recipes %}
-    <div class="card col s4 recipe-display">
+    <div class="card col xl4 l6 s6 recipe-display hoverable">
         <div class="card-image waves-effect waves-block waves-light">
             <img class="activator recipe_image_card" src="/static/images/{{ recipe.image }}">
         </div>
@@ -17,7 +17,6 @@
             <span class="card-title activator grey-text text-darken-4">{{ recipe.recipe_name.upper() }}<i class="material-icons right">more_vert</i></span>
             <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn ">View Recipe</a>
             <a href="/quick_add/{{ recipe.recipe_id }}" class="waves-effect blue btn ">Add Recipe</a>
-            <a class="waves-effect green btn modal-trigger" href="#modal2">Rate Me!</a>
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">{{ recipe.recipe_name }}<i class="material-icons right">close</i></span>

@@ -1,39 +1,39 @@
 {% extends "base.html" %} {% block content %}
 <h3 class="page-title">Add your own recipe</h3>
 <div class="row">
-    <form method="POST" enctype="multipart/form-data" class="col s12 recipe-form">
+    <form method="POST" enctype="multipart/form-data" class="col l12 recipe-form">
         <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 s4">
                 <i class="material-icons prefix">assignment</i>
                 <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
                 <label for="icon_prefix">Name of your dish?</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 s4">
                 <i class="material-icons prefix">assignment</i>
                 <input id="cuisine" name="cuisine" type="text" class="validate" required>
                 <label for="icon_prefix">Dish Cuisine?</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 s4">
                 <i class="material-icons prefix">group</i>
                 <input id="serves" name="serves" type="number" class="validate" required>
-                <label for="icon_prefix">Total serving</label>
+                <label for="icon_prefix">Total servings</label>
             </div>
         </div>
         
         <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="serves" name="temp" type="number" class="validate" required>
-                <label for="icon_prefix">Oven Tempeture</label>
-                <span class="helper-text">example = 180</span>
+                <label for="icon_prefix">Tempeture / Gas mark</label>
+                <span class="helper-text">example = 180 / 5</span>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="cook_time" name="cook_time" type="number" class="validate" required>
                 <label for="icon_prefix">Cooking time?</label>
                 <span class="helper-text">In minutes</span>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 s4">
                 <i class="material-icons prefix">timelapse</i>
                 <input id="prep_time" name="prep_time" type="number" class="validate" required>
                 <label for="icon_prefix">Preperation time?</label>
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="list" class="input-field col s3 ">
+            <div id="list" class="input-field col l3 s12">
                  <i class="material-icons prefix">subject</i>
                  <label for="icon_prefix">Ingredients?</label>
                 <input type="hidden" name="ingredients" value="">
@@ -49,7 +49,7 @@
                 <a id="ingredients-btn" class="waves-effect waves-light btn-small ingredients-btn" onclick="addIngredient()"><i class="material-icons left">add</i>Add ingredient</a>
 
             </div>
-            <div id="method_list" class="input-field col s9">
+            <div id="method_list" class="input-field col l9 s12">
                 <i class="material-icons prefix">subject</i>
                 <input type="hidden" name="methods" value="">
                 <input id="method" name="method" type="text" class="validate">
@@ -64,7 +64,7 @@
                     <input type="file" name=file>
                 </div>
                 <div class="file-path-wrapper">
-                    <label>Upload a photo for your dish</label>
+                    <label>Please upload a photo for your dish</label>
                     <input class="file-path validate" type="text" value="">
                 </div>
             </div>

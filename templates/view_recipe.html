@@ -7,47 +7,56 @@
 
 <div class="recipe_titles">
     <div class="row">
-        <div class="col s12 recipe_title">
-            <h3>{{ recipe.recipe_name }}</h3>
+        <div class="slider">
+            <ul class="slides">
+                <li>
+                    <img src="/static/images/{{ recipe.image}}">
+                    <!-- random image -->
+                    <div class="caption center-align">
+                        <h3>{{ recipe.recipe_name }}</h3>
+                        <h5 class="light grey-text text-lighten-3">Enjoy cooking!</h5>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="row">
-            <div class="col s4">
-                <h3> Ingredients</h3>
-                <ul>
-                    {% for ingredients in ingredient %}
-                    <li>
-                        <label>
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+        <li class="tab disabled">Serves : {{ recipe.serves }}</li>
+        <li class="tab disabled">Oven tempeture / Gas Mark : {{ recipe.temp }}</li>
+        <li class="tab disabled">Cooking time : {{ recipe.time }} <small>mins</small></li>
+        <li class="tab disabled">Preparation : {{ recipe.prep }} <small>mins</small></li>
+    </ul>
+    <div class="row recipe_list">
+        <div class="col l4 m12 s12 recipe_ul">
+            <h3> Ingredients</h3>
+            <ul>
+                {% for ingredients in ingredient %}
+                <li>
+                    <label>
                         <input type="checkbox" />
                         <span>{{ ingredients.ingredient }}</span>
                         </label>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="col s8">
-                <h3> Method </h3>
-                <ul>
-                    {% for method in methods %}
-                    <li>
-                        <label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col l8 m12 s12 recipe_ul">
+            <h3> Method </h3>
+            <ul>
+                {% for method in methods %}
+                <li>
+                    <label>
                         <input type="checkbox" />
                         <span>{{ method }}</span>
                         </label>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
 
-    </div>    
+    </div>
 </div>
-</div>
-<p>How many serves : {{ recipe.serves }}</p>
-<p>Oven tempeture : {{ recipe.temp }}</p>
-<p>Amount of cooking time : {{ recipe.time }}</p>
-<p>How long to prepare : {{ recipe.prep }}</p>
-</row>
-</div>
+<p><a class="btn-small waves-effect green btn modal-trigger" href="#modal2">Review</a> Review this dish to help others.</p>
 
 
 {% endblock %}

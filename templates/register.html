@@ -4,17 +4,24 @@
 <head>
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
 </head>
 <header>
     <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo center"><span class="little">Little</span> Recipes</a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="{{ url_for("index") }}">Home</a></li>
-            </ul>
-        </div>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo center"><span class="little">Little</span> Recipes</a>
+                <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                </ul>
+            </div>
+        </nav>
+        <ul class="sidenav" id="mobile-nav">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+        </ul>
     </nav>
 </header>
 
@@ -39,15 +46,15 @@
                     <button class="btn waves-effect waves-light" type="submit" action="Submit">Register<i class="material-icons right">send</i></button>
                 </div>
             </form>
-        {% include 'includes/_messages.html' %}
+            {% include 'includes/_messages.html' %}
         </div>
     </div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script type="text/javascript" src="static/js/js.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script type="text/javascript" src="/static/js/js.js"></script>
 
 </body>
 
