@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 import pymysql
 from werkzeug.utils import secure_filename
 from sql_connection import connection_import
+from math import ceil
 
 """upload path to store photos submitted from recipes"""
 
@@ -29,7 +30,7 @@ def index():
     
     return render_template("index.html")
 
-"""login and register pages"""
+# <-------------- LOGIN AND REGISTER ROUTES --------------->
 
 @app.route("/register", methods=["POST","GET"])
 def register():
@@ -90,18 +91,19 @@ def login():
     
 @app.route("/main/")
 def main():
+  
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         
         cursor.execute("SELECT * FROM RECIPES")
         
         all_recipes = cursor.fetchall()
         
-        
-        
     return render_template("main.html", all_recipes=all_recipes)
     
     
-    
+# <--------------------- CRUD for recipes ----------------------->
+
+
 @app.route("/your_recipes/", methods=["POST", "GET"])
 def your_recipes():
     
@@ -118,8 +120,6 @@ def your_recipes():
         
     return render_template("your_recipes.html", your_recipes = filtered_recipes )
 
-    
-# <--------------------- CRUD for recipes ----------------------->
 
 
 @app.route("/view_recipe/<int:id>")
@@ -214,32 +214,52 @@ def add_recipe():
 @app.route("/edit_recipe/<int:id>", methods=["GET","POST"])
 def edit_recipe(id):
     
-    """get recipe to update by id"""
-    
+    """ get recipe to update and user """
+   
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+        
         username = session['name']
         cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
-        usersId = cursor.fetchone()
+        usersId = cursor.fetchone()["user_id"]
+    
         
         cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", id)
-        recipesId = cursor.fetchone()
+        recipe = cursor.fetchone()
+        print(recipe["recipe_id"])
+            
+        cursor.execute("SELECT * FROM INGREDIENTS WHERE recipe_id = %s", id)
+        ingredients = cursor.fetchall()
+        
+        method = recipe["method"].split("-")
         
         if request.method == "POST":
             
-            update_list = [(request.form["recipe_name"], 
-                            request.form["cuisine"], 
-                            request.form["serves"], 
-                            request.form["temp"], 
-                            request.form["cook_time"], 
-                            request.form["prep_time"], 
-                            request.form["ingredients"], 
-                            request.form["cook_method"])]
-          
-            cursor.execute("UPDATE RECIPES SET recipe_name=%s, cuisine=%s, serves=%s, temp=%s, time=%s, prep=%s, ingredients=%s, method=%s WHERE id=%s", (update_list, id))
+            recipe_name = request.form["recipe_name"]
+            cuisine = request.form["cuisine"]
+            serves = request.form["serves"]
+            temp = request.form["temp"]
+            time = request.form["cook_time"]
+            prep = request.form["prep_time"]
+            method = request.form["methods"]
+            image = request.form["image"]
+            ingredient = request.form["ingredients"]
+
+            
+            
+            cursor.execute('UPDATE RECIPES SET recipe_name=%s, cuisine=%s, serves=%s, temp=%s, time=%s, prep=%s, method=%s, image=%s WHERE recipe_id=%s',(recipe_name, cuisine, serves, temp, time, prep, method, image, id))
+            
+            # for i in ingredient:
+            #     cursor.execute("UPDATE INGREDIENTS SET ingredient=i['ingredient'] WHERE recipe_id=recipes_id")
             
             connection.commit()
+            
+            flash("Recipe has been updated!", "blue black-text lighten-2")
+            return redirect(url_for("your_recipes"))
         
-    return render_template("edit_recipe.html", recipe_details=recipesId)
+    return render_template("edit_recipe.html", recipe_details=recipe, ingredients=ingredients, method=method)
+
+
+
 
 @app.route("/delete_recipe/<int:id>/")
 def delete_recipe(id):
@@ -252,6 +272,8 @@ def delete_recipe(id):
     return redirect(url_for("your_recipes"))
     
     
+# <------------------ RATING RECIPES AND QUICK ADD ---------------------> 
+
 @app.route("/rate_recipe/<int:id>")
 def rate_recipe(id):
   
