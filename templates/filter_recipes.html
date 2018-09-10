@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block content %}
+<h3 class="page-title">Filter Results</h3>
+<div class="filtered">
+    <div class="row">
+        <div class="input-field col xl3 l6 s6">
+            <select>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            <label>Cuisine</label>
+        </div>
+        <div class="input-field col xl3 l6 s6">
+            <select>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            <label>Cooking time</label>
+        </div>
+        <div class="input-field col xl3 l6 s6">
+            <select>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            <label>Prep Time</label>
+        </div>
+        <div class="input-field col xl3 l6 s6">
+            <select>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            <label>Ratings</label>
+        </div>
+        <button class="btn-small waves-effect waves-light" onclick="filter()">
+            Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </div>
+</div>
+
+
+<!--<div class="progress">-->
+<!--    <div class="indeterminate"></div>-->
+<!--</div>-->
+<div class="returned_results"></div>
+
+{% endblock %}

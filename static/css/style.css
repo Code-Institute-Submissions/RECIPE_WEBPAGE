@@ -26,7 +26,7 @@
     margin: 20px 0;
 }
 
-/* First page  */
+/* Login and register page  */
 
 #main-login-page {
     background-image: url("https://images.pexels.com/photos/357743/pexels-photo-357743.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
@@ -59,22 +59,9 @@
 
 /* main page */
 
-.search-bar {
-    padding: 10px 15px;
-    color: black;
-}
-
 .label-icon {
     color: black;
 }
-
-/*.recipe-display {*/
-/*    height: auto;*/
-/*    max-width: 250px !important;*/
-/*    margin: 5px 10px;*/
-/*    box-sizing: border-box;*/
-
-/*}*/
 
 .recipe_image_card {
     max-height: 150px;
@@ -135,6 +122,16 @@
 
 .recipe-input {
     border-bottom: none !important;
+}
+.filtered {
+    margin-top: 10px;
+}
+.search_text{
+    margin:0;
+}
+.input-field.col label {
+     font-weight: 400;
+     color:black;
 }
 
 /* cuisines */

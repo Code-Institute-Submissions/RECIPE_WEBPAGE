@@ -21,39 +21,49 @@
             </div>
         </div>
         <div class="row">
-
             <div class="input-field col l4 s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="serves" name="temp" type="number" class="validate" value="{{ recipe_details.temp }}">
-                <label for="icon_prefix">Oven Tempeture</label>
+                <label for="icon_prefix">Oven Temp / Gas mark</label>
+                <span class="helper-text">example = 60 / 5</span>
             </div>
             <div class="input-field col l4 s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="cook_time" name="cook_time" type="number" class="validate" value="{{ recipe_details.time }}">
-                <label for="icon_prefix">Amount of cooking time? (mins)</label>
+                <span class="helper-text">example = 60 mins</span>
+                <label for="icon_prefix">Amount of cooking time?</label>
             </div>
             <div class="input-field col l4 s4">
                 <i class="material-icons prefix">timelapse</i>
                 <input id="prep_time" name="prep_time" type="number" class="validate" value="{{ recipe_details.prep }}">
-                <label for="icon_prefix">Preparation time? (mins)</label>
+                <label for="icon_prefix">Preparation time?</label>
+                <span class="helper-text">example = 60 mins</span>
+
             </div>
         </div>
-        <div class="row">
-            <div class="input-field col l3 s12">
+        <div  class="row">
+            <div id="list" class="input-field col l3 s12">
                 <label for="icon_prefix">Ingredients</label>
                 <input type="hidden" name="ingredients" value="">
                 <i class="material-icons prefix">subject</i> 
                 {% for ingredient in ingredients %}
                 <input id="ingredients" name="ingredient" type="text" class="validate" value="{{ ingredient.ingredient }}"> 
                 {% endfor %}
+                 <a id="ingredients-btn" class="waves-effect waves-light btn-small ingredients-btn" onclick="addIngredient()">
+                    <i class="material-icons left">add</i>
+                    Add ingredient
+                </a>
             </div>
-            <div class="input-field col l9 s12">
+            <div id="method_list" class="input-field col l9 s12">
                 <label for="icon_prefix">Method</label>
                 <i class="material-icons prefix">subject</i> 
                 {% for methods in method %}
                 <input type="hidden" name="methods" value="">
                 <input id="method" name="method" type="text" class="validate" value="{{ methods }}"> 
                 {% endfor %}
+                 <a id="method-btn" class="waves-effect waves-light btn-small" onclick="addMethod()">
+                    <i class="material-icons left">add</i>add method
+                </a>
             </div>
         </div>
         <div class="row">

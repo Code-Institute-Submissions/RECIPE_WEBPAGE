@@ -2,6 +2,7 @@ $(document).ready(function() {
     $('.modal').modal();
     $('.sidenav').sidenav();
     $('.slider').slider();
+    $('select').formSelect();
     
     $('.recipe-form').on('submit', function(e) {
         let values = [];
@@ -22,26 +23,31 @@ $(document).ready(function() {
 
 // <---------- Insert line for recipe form entries -------->
 
-function addIngredient(event) {
+function addIngredient(e) {
 
-    let list = document.getElementById("list");
-    let btn = document.getElementById("ingredients-btn");
-    let newElement = document.createElement("input");
+    let list = document.getElementById("list"),
+        btn = document.getElementById("ingredients-btn"),
+        newElement = document.createElement("input");
+    
     newElement.setAttribute("type", "text");
     newElement.setAttribute("name", "ingredient");
-    
     list.insertBefore(newElement, btn);
     
 }
 
 function addMethod(e) {
 
-    let list = document.getElementById("method_list");
-    let btn = document.getElementById("method-btn");
-    let newElement = document.createElement("input");
+    let list = document.getElementById("method_list"),
+         btn = document.getElementById("method-btn"),
+        newElement = document.createElement("input");
+        
     newElement.setAttribute("type", "text");
     newElement.setAttribute("name", "method");
 
     list.insertBefore(newElement, btn);
 }
 
+function filter(e) {
+    var elems = document.querySelectorAll('select');
+    console.log(elems.Values)
+};
