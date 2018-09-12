@@ -47,7 +47,22 @@ function addMethod(e) {
     list.insertBefore(newElement, btn);
 }
 
-function filter(e) {
-    var elems = document.querySelectorAll('select');
-    console.log(elems.Values)
-};
+let searchBar = document.getElementById("search");
+
+searchBar.addEventListener("keyup", (e)=> {
+    let searchValue = searchBar.value.toUpperCase(),
+        recipeBoxes = document.querySelectorAll(".recipe-display"),
+        recipeTitle = document.querySelectorAll(".recipes_title");
+
+    for(let i = 0; i < recipeBoxes.length; i++){
+        
+        let title = recipeTitle[i].innerHTML;
+   
+        if (title.indexOf(searchValue) > -1){
+            recipeBoxes[i].style.display = "";
+        }else{
+            recipeBoxes[i].style.display = "none";
+        }
+    }
+    
+});
