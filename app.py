@@ -98,29 +98,22 @@ def main():
   
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         
-        recipes = cursor.execute("SELECT * FROM RECIPES")
+        cursor.execute("SELECT * FROM RECIPES ORDER BY date_entered DESC")
         all_recipes = cursor.fetchall()
-        
+
         cursor.execute("SELECT DISTINCT cuisine FROM RECIPES")
         cuisines = cursor.fetchall()
-        
-        cursor.execute("SELECT DISTINCT date_entered FROM RECIPES")
         
         
     
     return render_template("main.html", all_recipes=all_recipes, cuisines=cuisines)
-    
-@app.route("/next/<string:all_recipes>")
-def next(all_recipes):
-    next(all_recipes)
-    return redirect(url_for("main"))
+
 # <--------------------- CRUD for recipes ----------------------->
 
 
 @app.route("/your_recipes/", methods=["POST", "GET"])
 def your_recipes():
     
-    # stuck getting id from results returned.
     username = session["name"]
 
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
@@ -133,20 +126,27 @@ def your_recipes():
         
     return render_template("your_recipes.html", your_recipes = filtered_recipes )
 
-
+# VIEW RECIPE IS LOOKING FOR RECIPE_ID IN INGREDIENTS BUT HAS BEEN DELETED, NEED TO REINSERT INTO DATABASE
 
 @app.route("/view_recipe/<int:id>")
 def view_recipe(id):
+    
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", id)
         recipesId = cursor.fetchone()
-        
+
         cursor.execute("SELECT * FROM INGREDIENTS WHERE recipe_id = %s", id)
         recipes_ingredients = cursor.fetchall()
         
+        cursor.execute("SELECT * FROM REVIEWS WHERE recipe_id = %s", (id))
+        reviews = cursor.fetchall()
+        
         method = recipesId["method"].split("-")
+        
+        print(reviews)
 
-    return render_template("view_recipe.html", recipe = recipesId, ingredient = recipes_ingredients, methods = method)
+        
+    return render_template("view_recipe.html", recipe = recipesId, ingredient = recipes_ingredients, methods = method, id=id, reviews=reviews)
     
     
     
@@ -156,91 +156,105 @@ def add_recipe():
    
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
         
-        cursor.execute("SELECT DISTINCT CUISINE FROM CUISINE")
-        cuisine = cursor.fetchall()
-
-    if request.method == "POST":
-        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+        if request.method == "POST":
             
-            """get id of username"""
-            
-            username = session['name']
-            cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
-            usersId = cursor.fetchone()
-       
-            
-            """post recipe form into database"""
-            
-            """insert into recipes table """
-            
-            recipe_name = request.form["recipe_name"]
-            cuisine = request.form["cuisine"]
-            serves = request.form["serves"]
-            temp = request.form["temp"]
-            time = request.form["cook_time"]
-            prep = request.form["prep_time"]
-            method = request.form["methods"]
-            ingredient = request.form["ingredients"]
-        
-            """photos upload handler"""
-             
-            # check if the post request has the file part
-            if 'file' not in request.files:
-                flash('please upload photo')
-                return redirect(request.url)
-            file = request.files['file']
-            # if user does not select file, browser also
-            # submit a empty part without filename
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            
-            Image = filename
-            
-            cursor.execute("INSERT INTO RECIPES(user_id, name, recipe_name, cuisine, serves, temp, time, prep, method, image) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (usersId["user_id"], username, recipe_name,cuisine, serves, temp, time, prep, method, Image))
-    
-            connection.commit()
-
-            x = ingredient.split(",")
-            
-            cursor.execute("SELECT recipe_id FROM RECIPES WHERE recipe_id=(SELECT MAX(recipe_id) FROM RECIPES)")
-            
-            recipe_id = cursor.fetchone()["recipe_id"]
-        
-            # <------- CHECK IF INGREDIENT ISNT ALREADY IN DATABASE LIST --------->
-            
-            cursor.execute("SELECT ingredient FROM INGREDIENTS")
-            database_ingredients = cursor.fetchall()
-            
-            check_ingredients = []
-            
-            for values in database_ingredients:
-                check_ingredients.append(values["ingredient"])
-
-            for i in x:
-                if i in check_ingredients:
-                    cursor.execute("SELECT ingredient_id FROM INGREDIENTS WHERE ingredient = %s", (i))
-                    ingredient_database_id = cursor.fetchone()["ingredient_id"]
-                    
-                    cursor.execute("INSERT INTO INGREDIENTS(recipe_id) VALUES(%s) WHERE ingredient_id = %s", (recipe_id, ingredient_database_id))
+            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
                 
-                    connection.commit() 
-                    
-                else:
-                    cursor.execute("INSERT INTO INGREDIENTS(ingredient, recipe_id) VALUES(%s, %s)", (i, recipe_id))
-                    
-                    connection.commit()
-                    
+                """get id of username"""
+                
+                username = session['name']
+                cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
+                usersId = cursor.fetchone()
+           
+                
+                """post recipe form into database"""
+                
+                """insert into recipes table """
+                
+                recipe_name = request.form["recipe_name"]
+                cuisine = request.form["cuisine"]
+                serves = request.form["serves"]
+                temp = request.form["temp"]
+                time = request.form["cook_time"]
+                prep = request.form["prep_time"]
+                method = request.form["methods"]
+                ingredient = request.form["ingredients"]
             
-            connection.commit()
-            
-        flash("Thank you for adding your recipe", "blue black-text lighten-2")
+                """photos upload handler"""
+                 
+                # check if the post request has the file part
+                if 'file' not in request.files:
+                    flash('please upload photo')
+                    return redirect(request.url)
+                file = request.files['file']
+                # if user does not select file, browser also
+                # submit a empty part without filename
+                if file.filename == '':
+                    flash('No selected file')
+                    return redirect(request.url)
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                
+                Image = filename
+                
+                cursor.execute("INSERT INTO RECIPES(user_id, name, recipe_name, cuisine, serves, temp, time, prep, method, image) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (usersId["user_id"], username, recipe_name,cuisine, serves, temp, time, prep, method, Image))
+                
+                connection.commit()
     
-        return redirect(url_for("your_recipes"))
-    return render_template("add_recipe.html", cuisines=cuisine)
+                form_ingredients = ingredient.split(",")
+                
+                cursor.execute("SELECT recipe_id FROM RECIPES WHERE recipe_id=(SELECT MAX(recipe_id) FROM RECIPES)")
+                
+                recipe_id = cursor.fetchone()["recipe_id"]
+                
+                # cursor.execute("INSERT INTO RECIPES_INGREDIENTS(recipes_id) VALUES(%s)", (recipe_id))
+                
+                # <------- CHECK IF INGREDIENT EXISTS IN DATABASE --------->
+                
+                cursor.execute("SELECT ingredient FROM INGREDIENTS")
+                database_ingredients = cursor.fetchall()
+                
+                check_ingredients = []
+                
+                for values in database_ingredients:
+                    check_ingredients.append(values["ingredient"])
+    
+                for ingredient in form_ingredients:
+                    
+                    if ingredient in check_ingredients:
+                        
+                        
+                        cursor.execute("SELECT ingredient_id FROM INGREDIENTS WHERE ingredient = %s", (ingredient))
+                        
+                        ingredient_database_id = cursor.fetchone()["ingredient_id"]
+                        
+                
+                        connection.commit() 
+                        
+                    else:
+                        cursor.execute("INSERT INTO INGREDIENTS(ingredient, recipe_id) VALUES(%s, %s)", (ingredient, recipe_id))
+                        
+                        connection.commit()
+                        
+                        # cursor.execute("SELECT ingredient_id FROM INGREDIENTS WHERE ingredient = %s", (ingredient))
+                        
+                        # ingredient_database_id = cursor.fetchone()["ingredient_id"]
+                        
+                        # cursor.execute("INSERT INTO RECIPES_INGREDIENTS(ingredients_id) VALUES(%s)"), (ingredient_database_id)
+                        
+                        # cursor.execute("UPDATE RECIPES_INGREDIENTS SET recipes_id=&s, ingredients_id=%s WHERE recipes_id=%s"),(recipe_id, ingredient_database_id, recipe_id)
+                        
+                        
+                        connection.commit()
+                        
+                
+                connection.commit()
+                
+            flash("Thank you for adding your recipe", "blue black-text lighten-2")
+        
+            return redirect(url_for("your_recipes"))
+    return render_template("add_recipe.html")
         
 
 @app.route("/edit_recipe/<int:id>", methods=["GET","POST"])
@@ -305,23 +319,31 @@ def delete_recipe(id):
     
 # <------------------ RATING RECIPES / QUICK ADD / FILTER ---------------------> 
 
-@app.route("/rate_recipe/<int:id>")
-def rate_recipe(id):
-  
+@app.route("/review/<id>", methods=["GET","POST"])
+    
+def review(id):
+    
+    username = session["name"]
+    
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        cursor.execute("SELECT * FROM RECIPES WHERE id = %s", id)
-        recipe_for_rating = quick_add = cursor.fetchone()
-        # rating = request.form["rating"]
+        cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", (id))
+        recipe = cursor.fetchone()
         
-        # cursor.execute("INSERT INTO RATING(rating, recipe_id, user_id) VALUES(rating = %s, recipe_id = recipe_for_rating['id'], user_id = recipe_for_rating['user_id']", rating)
+    if request.method == "POST":
         
-        # cursor.commit()
-
+        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            
+            review = request.form["review"]
+            rating = request.form["rating"]
+           
+            cursor.execute("INSERT INTO REVIEWS(recipe_id, review, rating, reviewer) VALUES(%s,%s,%s,%s)", (id, review, rating, username))
+            
+            connection.commit()
+            
+        flash("Thank you for your review ", "green black-text lighten-2")
+        return redirect(url_for("main"))
         
-        # print(request.form["showVal"])
-        
-        
-    return redirect(url_for("main"))
+    return render_template("review.html", recipe=recipe)
 
 
 @app.route("/quick_add/<int:id>")
@@ -353,11 +375,13 @@ def quick_add(id):
 
         cursor.execute("INSERT INTO RECIPES(user_id, name, recipe_name, cuisine, serves, temp, time, prep, method, image) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (users_id, username, recipe_name, cuisine, serves, temp, cook_time, prep, method, Image))
 
+
+        # uncomment out when id can be added to recipe column
+
         # for i in ingredients:
         #     cursor.execute("INSERT INTO INGREDIENTS(ingredient, recipe_id) VALUES(%s, %s)", (i, i["recipe_id"])) 
-
-        
-        # connection.commit()
+            
+        connection.commit()
         
     return redirect(url_for("your_recipes"))
 
@@ -368,29 +392,8 @@ def quick_add(id):
 #         return redirect(url_for("filter_recipes"))
 #     return render_template("filter_recipes.html")
 
-# <------------------ CUISINE SECTION ----------------------->
-
-@app.route("/cuisine")
-def cuisine():
     
-    with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        cursor.execute("SELECT cuisine FROM RECIPES")
-        cuisine = cursor.fetchall()
-        
-    return render_template("cuisine.html", cuisine=cuisine )
-    
-@app.route("/view_cuisine/<string:cuisine>")
-def view_cuisine(cuisine):
-    with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        cursor.execute("SELECT * FROM RECIPES WHERE cuisine = %s", cuisine)
-        cuisine_view = cursor.fetchall()
 
-    return render_template("view_cuisine.html", view_cuisines = cuisine_view)
-
-@app.route("/add_cuisine")
-def add_cuisine():
-    
-    return render_template("add_cuisine.html")
     
 
 

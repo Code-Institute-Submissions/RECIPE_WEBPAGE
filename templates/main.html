@@ -2,94 +2,73 @@
 
 <h4> Welcome {{ session.name }}</h4>
 
-
-
 <div class="row">
-    <div class="input-field search_text inline col 3">
+    <div class="input-field search_text inline col s3 l4 ">
         <input id="search" type="text" class="validate">
         <label for="search">Search By Recipe</label>
     </div>
-    <div class="col l3 s3">
-        <select>
-            <option value="" disabled selected>By Cuisine</option>
-            {% for cuisine in cuisines %}
-            <option value="1">{{ cuisine.cuisine }}</option>
-            {% endfor %}
-        </select>
-        <label>Materialize Select</label>
+    <div>
+        <p class="col s1 l1">OR</p>
     </div>
-    <div class="col l3 s3">
-        <select>
-            <option value="" disabled selected>By Rating</option>
-            <option value="1">Ascending</option>
-            <option value="2">Decending</option>
-        </select>
-        <label>Materialize Select</label>
-    </div>
-    <div class="col l3 s3">
-        <select>
-            <option value="" disabled selected>By date</option>
-            <option value="1">Ascending</option>
-            <option value="2">Decending</option>
-        </select>
-        <label>Materialize Select</label>
+    <div class="col s3 l4">
+        <select id="select_cuisine">
+        <option value="" disabled selected>By Cuisine</option>
+        {% for cuisine in cuisines %}
+        <option value="{{ cuisine.cuisine}}">{{ cuisine.cuisine.capitalize() }}</option>
+        {% endfor %}
+        </select>   
     </div>
 </div>
 <div class="row">
-    <button class="btn waves-effect waves-light" type="submit" name="action">
-    Search
-    <i class="material-icons right">search</i>
-    </button>
+    <button id="recipe_search_button" class="btn waves-effect waves-light" type="submit" name="action" onclick="recipeSearch()">
+Search
+<i class="material-icons right">search</i>
+</button>
+    <button id="search_reset" class="btn waves-effect waves-light grey" type="reset" name="reset" onclick="recipeReset()">
+Reset 
+<i class="material-icons right">clear</i>
+</button>
 </div>
 
 
 
-    <div class="row recipe_wrapper">
-        {% for recipe in all_recipes %}
-        <div class="card col xl4 l6 s6 recipe-display hoverable">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator recipe_image_card" src="/static/images/{{ recipe.image }}">
-            </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4 recipes_title">{{ recipe.recipe_name.upper() }}
-                    <i class="material-icons right">more_vert</i>
-                </span>
-                <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn ">View Recipe</a>
-                <a href="/quick_add/{{ recipe.recipe_id }}" class="waves-effect blue btn ">Add Recipe</a>
-            </div>
-            <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">{{ recipe.recipe_name }}<i class="material-icons right">close</i></span>
-                <p>Preparation time: {{ recipe.prep }} mins</p>
-                <p>Serves: {{ recipe.serves }} people</p>
-                <p>Cooking time: {{ recipe.time }} </p>
-            </div>
+
+<div class="row recipe_wrapper">
+    {% for recipe in all_recipes %}
+    <div class="card col xl4 l6 s6 recipe-display hoverable">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator recipe_image_card" src="/static/images/{{ recipe.image }}">
+        </div>
+        <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4 recipes_title">{{ recipe.recipe_name.upper() }}
+                <i class="material-icons right">more_vert</i>
+            </span>
+            <span class="card-title activator grey-text text-darken-4 recipes_cuisine">{{ recipe.cuisine.capitalize() }}
+            </span>
+                
+            <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn ">View Recipe</a>
+            <a href="/quick_add/{{ recipe.recipe_id }}" class="waves-effect blue btn ">Add Recipe</a>
+
+            
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{ recipe.recipe_name }}<i class="material-icons right">close</i></span>
+            <p>Preparation time: {{ recipe.prep }} mins</p>
+            <p>Serves: {{ recipe.serves }} people</p>
+            <p>Cooking time: {{ recipe.time }} </p>
             <p>Published by {{ recipe.name }}</p>
         </div>
-        
-        <!-- Modal Structure -->
-        <div id="modal2" class="modal">
-            <div class="modal-content">
-                <h4>RATE ME!</h4>
-                <form action="#">
-                    <p class="range-field">
-                        <input type="range" name="rate-recipe" min="1" max="5" oninput="showVal(this.value)" onchange="showVal(this.value)" />
-                    </p>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="/rate_recipe/{{ recipe.id}}" class="modal-close waves-effect waves-green btn-flat">Rate Me!</a>
-            </div>
-        </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
 
-    <!--<ul class="pagination">-->
-    <!--        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>-->
-    <!--        <li class="active"><a href="#!">1</a></li>-->
-    <!--        <li class="waves-effect"><a href="/next/{{all_recipes}}">2</a></li>-->
-    <!--        <li class="waves-effect"><a href="#!">3</a></li>-->
-    <!--        <li class="waves-effect"><a href="#!">4</a></li>-->
-    <!--        <li class="waves-effect"><a href="#!">5</a></li>-->
-    <!--        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>-->
-    <!--    </ul>-->
-    {% endblock %}
+<!--<ul class="pagination">-->
+<!--        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>-->
+<!--        <li class="active"><a href="#!">1</a></li>-->
+<!--        <li class="waves-effect"><a href="/next/{{all_recipes}}">2</a></li>-->
+<!--        <li class="waves-effect"><a href="#!">3</a></li>-->
+<!--        <li class="waves-effect"><a href="#!">4</a></li>-->
+<!--        <li class="waves-effect"><a href="#!">5</a></li>-->
+<!--        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>-->
+<!--    </ul>-->
+{% endblock %}

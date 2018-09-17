@@ -1,17 +1,11 @@
 {% extends "base.html" %} {% block content %}
-
-<!--<div class="image-wrapper">-->
-<!--    <img class="image_view" src="/static/images/{{ recipe.image }}"></img>-->
-<!--</div>-->
-
-
 <div class="recipe_titles">
     <div class="row">
         <div class="slider">
             <ul class="slides">
                 <li>
                     <img src="/static/images/{{ recipe.image}}">
-                    <!-- random image -->
+
                     <div class="caption center-align">
                         <h3>{{ recipe.recipe_name }}</h3>
                         <h5 class="light grey-text text-lighten-3">Enjoy cooking!</h5>
@@ -53,10 +47,26 @@
                 {% endfor %}
             </ul>
         </div>
-
     </div>
 </div>
-<p><a class="btn-small waves-effect green btn modal-trigger" href="#modal2">Review</a> Review this dish to help others.</p>
+
+
+<p><a href="/review/{{ id }}" class="btn-small waves-effect green btn">Review</a> Review this dish to help others.</p>
+
+<h5 class="center">Check out what people are saying!!</h5>
+
+<div class="review_list">
+    <div class="row">
+        <ul class="collapsible">
+            {% for review in reviews %}
+            <li>
+                <div class="collapsible-header"><i class="material-icons">person</i>{{ review.reviewer }}</div>
+                <div class="collapsible-body"><span>{{ review.review }}</span></div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
 
 {% endblock %}
