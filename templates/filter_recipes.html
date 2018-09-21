@@ -1,50 +1,59 @@
 {% extends "base.html" %} {% block content %}
 <h3 class="page-title">Filter Results</h3>
-<div class="filtered">
-    <div class="row">
-        <div class="input-field col xl3 l6 s6">
-            <select>
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-            <label>Cuisine</label>
-        </div>
-        <div class="input-field col xl3 l6 s6">
-            <select>
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-            <label>Cooking time</label>
-        </div>
-        <div class="input-field col xl3 l6 s6">
-            <select>
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-            <label>Prep Time</label>
-        </div>
-        <div class="input-field col xl3 l6 s6">
-            <select>
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-            <label>Ratings</label>
-        </div>
-        <button class="btn-small waves-effect waves-light" onclick="filter()">
-            Submit
-            <i class="material-icons right">send</i>
-        </button>
-    </div>
-</div>
+<div>
+    <form method="POST" enctype="multipart/form-data" id="recipe_filter">
+        <div class="row">
+            <div class="input-field col l12 s12">
+                <input type="hidden" name="cuisine" value="">
+                <select id="f_cuisine">
+                    <option value="" disabled selected>Choose your option</option>
+                    {% for i in recipe %}
+                    <option value="{{ i.cuisine }}">{{ i.cuisine }}</option>
+                    {% endfor %}
+                </select>
+                <label>Cuisine</label>
+            </div>
 
+            <div class="input-field col l12 s12">
+                <input type="hidden" name="cooking_time" value="">
+                <select id="f_cooking_time">
+                    <option value="" disabled selected>Cooking time</option>
+                    <option value="0-15">0 - 15 mins</option>
+                    <option value="15-20">15 - 30 mins</option>
+                    <option value="30-45">30 - 45 mins</option>
+                    <option value="45">45 + </option>
+                </select>
+                <label>Cooking time</label>
+            </div>
+            <div class="input-field col l12 s12">
+                <input type="hidden" name="prep_time" value="">
+                <select id="f_prep_time">
+                    <option value="" disabled selected>Preparation time</option>
+                    <option value="0-15">0 - 15 mins</option>
+                    <option value="15-20">15 - 30 mins</option>
+                    <option value="30-45">30 - 45 mins</option>
+                    <option value="45">45 + </option>
+                </select>
+                <label>Prep Time</label>
+            </div>
+            <div class="input-field col l12 s12">
+                <input type="hidden" name="rating" value="">
+                <select id="f_rating">
+                    <option value="" disabled selected>By Rating</option>
+                    <option value="1">1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                    <option value="4">Option 4</option>
+                    <option value="5">Option 5</option>
+                </select>
+                <label>Ratings</label>
+            </div>
+            <a class="btn waves-effect waves-light" onclick="recipeFilter()">Submit
+            <i class="material-icons right">send</i>
+            </a>
+        </div>
+    </form>
+</div>
 
 <!--<div class="progress">-->
 <!--    <div class="indeterminate"></div>-->
