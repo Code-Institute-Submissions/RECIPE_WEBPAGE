@@ -1,63 +1,66 @@
 {% extends "base.html" %} {% block content %}
 <h3 class="page-title">Filter Results</h3>
 <div>
-    <form method="POST" enctype="multipart/form-data" id="recipe_filter">
+    <form method="POST" id="search_recipes">
         <div class="row">
-            <div class="input-field col l12 s12">
-                <input type="hidden" name="cuisine" value="">
-                <select id="f_cuisine">
-                    <option value="" disabled selected>Choose your option</option>
-                    {% for i in recipe %}
-                    <option value="{{ i.cuisine }}">{{ i.cuisine }}</option>
-                    {% endfor %}
-                </select>
-                <label>Cuisine</label>
+            <div class="input-field col s6">
+                <input placeholder="Search by Recipe?" id="recipe_name" name="recipe_name" type="text" class="validate">
+                <label for="recipe_name">Recipe Name?</label>
             </div>
-
-            <div class="input-field col l12 s12">
-                <input type="hidden" name="cooking_time" value="">
-                <select id="f_cooking_time">
-                    <option value="" disabled selected>Cooking time</option>
-                    <option value="0-15">0 - 15 mins</option>
-                    <option value="15-20">15 - 30 mins</option>
-                    <option value="30-45">30 - 45 mins</option>
-                    <option value="45">45 + </option>
-                </select>
-                <label>Cooking time</label>
-            </div>
-            <div class="input-field col l12 s12">
-                <input type="hidden" name="prep_time" value="">
-                <select id="f_prep_time">
-                    <option value="" disabled selected>Preparation time</option>
-                    <option value="0-15">0 - 15 mins</option>
-                    <option value="15-20">15 - 30 mins</option>
-                    <option value="30-45">30 - 45 mins</option>
-                    <option value="45">45 + </option>
-                </select>
-                <label>Prep Time</label>
-            </div>
-            <div class="input-field col l12 s12">
-                <input type="hidden" name="rating" value="">
-                <select id="f_rating">
-                    <option value="" disabled selected>By Rating</option>
-                    <option value="1">1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                    <option value="4">Option 4</option>
-                    <option value="5">Option 5</option>
-                </select>
-                <label>Ratings</label>
-            </div>
-            <a class="btn waves-effect waves-light" onclick="recipeFilter()">Submit
-            <i class="material-icons right">send</i>
-            </a>
+            <div class="input-field col s6">
+                <input placeholder="Search by Cuisine" id="cuisine" name="cuisine" type="text" class="validate">
+                <label for="Cuisine">Cuisine?</label></div>
         </div>
+        <div class="row">
+            <p class="range-field col l4 s4">
+                <label>Amount of prep time? (mins)</label>
+                <input type="range" id="prep_time" name="prep_time" min="5" max="180" value="5" />
+            </p>
+            <p class="range-field col l4 s4">
+                <label>Rating</label>
+                <input type="range" id="rating" name="rating" min="1" max="5" value="1" />
+            </p>
+            <p class="range-field col l4 s4">
+                <label>Servings</label>
+                <input type="range" id="serves" name="serves" min="1" max="20" value="1" />
+            </p>
+        </div>
+        <button class="btn waves-effect waves-light filter_button" type="submit" name="action">
+            Search
+            <i class="material-icons right">chevron_right</i>
+        </button>
+        <button id="search_reset" class="btn waves-effect waves-light grey" type="reset" name="reset" onclick="recipeReset()">
+            Reset 
+            <i class="material-icons right">clear</i>
+        </button>
     </form>
 </div>
 
 <!--<div class="progress">-->
 <!--    <div class="indeterminate"></div>-->
 <!--</div>-->
-<div class="returned_results"></div>
+
+<div class="row">
+    {% for all in all_recipes %}
+    <div class="card col s3 m3 l3">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="/static/images/{{ all.image }}">
+        </div>
+        <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"><small>Recipe : </small>{{ all.recipe_name|capitalize }}
+            <i class="material-icons right">more_vert</i></span>
+            <p><a href="/view_recipe/{{ all.recipe_id }}">View recipe</a></p>
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"><small>Cuisine : </small>{{ all.cuisine|capitalize }}<i class="material-icons right">close</i></span>
+            <p>Preparation time: {{ all.prep }} mins</p>
+            <p>Serves: {{ all.serves }} people</p>
+            <p>Cooking time: {{ all.time }} </p>
+            <p>Published by: {{ all.name }}</p>
+            <p>Published: {{ all.date_entered }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}

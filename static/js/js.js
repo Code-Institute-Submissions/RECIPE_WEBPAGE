@@ -105,19 +105,19 @@ function recipeReset(e){
 
 // function for advanced search form
 
-let filter_cuisine = document.getElementById("f_cuisine").value, 
-    filter_rating = document.getElementById("f_rating"),
-    filter_prep_time = document.getElementById("f_prep_time"),
-    filter_cooking_time = document.getElementById("f_cooking_time"),
-    filter_submit = document.getElementById("recipe_filter");
+// let filter_cuisine = document.getElementById("f_cuisine").value, 
+//     filter_rating = document.getElementById("f_rating"),
+//     filter_prep_time = document.getElementById("f_prep_time"),
+//     filter_cooking_time = document.getElementById("f_cooking_time"),
+//     filter_submit = document.getElementById("recipe_filter");
     
-function recipeFilter(e) {
-    let cuisine = filter_cuisine.value,
-        rating = filter_rating.value,
-        prep_time = filter_prep_time.value,
-        cooking_time = filter_cooking_time.value;
+// function recipeFilter(e) {
+//     let cuisine = filter_cuisine.value,
+//         rating = filter_rating.value,
+//         prep_time = filter_prep_time.value,
+//         cooking_time = filter_cooking_time.value;
     
         
-    filter_submit.submit();
+//     filter_submit.submit();
     
-}
+// }

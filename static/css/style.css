@@ -167,6 +167,14 @@
     left: auto;
     right: auto;
 }
+.switch {
+    margin-top: 20px;
+}
+
+.filter_button {
+    margin-top: 20px;
+}
+
 @media only screen and (min-width: 1201px){
     .row .col.xl4 {
     width: 32.333333%;
