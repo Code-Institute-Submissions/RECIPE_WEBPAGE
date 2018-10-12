@@ -48,7 +48,7 @@ Another powerful test tool is flasks jinja error page that appeared when errors 
 ### 5. View Recipe Webpage 
 
 **View Recipe page below by clicking link**
-[Play game!!]
+[View webpage!!]
 (https://git.heroku.com/recipe-page-milestone-project.git)
 
 
