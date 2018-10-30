@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block content %}
+
 <h3 class="page-title">Filter Results</h3>
+
 <div>
     <form method="POST" id="search_recipes">
         <div class="row">
@@ -27,7 +29,7 @@
         </div>
         <button class="btn waves-effect waves-light filter_button" type="submit" name="action">
             Search
-            <i class="material-icons right">chevron_right</i>
+            <i class="material-icons right">search</i>
         </button>
         <button id="search_reset" class="btn waves-effect waves-light grey" type="reset" name="reset" onclick="recipeReset()">
             Reset 
@@ -36,11 +38,7 @@
     </form>
 </div>
 
-<!--<div class="progress">-->
-<!--    <div class="indeterminate"></div>-->
-<!--</div>-->
-
-<div class="row">
+<div class="row recipes-display">
     {% for all in all_recipes %}
     <div class="card col s3 m3 l3">
         <div class="card-image waves-effect waves-block waves-light">

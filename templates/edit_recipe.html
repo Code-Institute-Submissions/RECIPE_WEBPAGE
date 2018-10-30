@@ -7,43 +7,43 @@
             <div class="input-field col l4 s4 ">
                 <i class="material-icons prefix">assignment</i>
                 <input id="recipe_name" name="recipe_name" type="text" class="validate" value="{{ recipe_details.recipe_name}}">
-                <label for="icon_prefix">Enter recipe name</label>
+                <label for="recipe_name">Enter recipe name</label>
             </div>
             <div class="input-field col l4 s4">
                 <i class="material-icons prefix">assignment</i>
                 <input id="cuisine" name="cuisine" type="text" class="validate" value="{{ recipe_details.cuisine}}">
-                <label for="icon_prefix">Enter cuisine</label>
+                <label for="cuisine">Enter cuisine</label>
             </div>
             <div class="input-field col l4 s4">
                 <i class="material-icons prefix">group</i>
                 <input id="serves" name="serves" type="number" class="validate" value="{{ recipe_details.serves }}">
-                <label for="icon_prefix">Serves?</label>
+                <label for="serves">Serves?</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col l4 s4">
                 <i class="material-icons prefix">whatshot</i>
-                <input id="serves" name="temp" type="number" class="validate" value="{{ recipe_details.temp }}">
-                <label for="icon_prefix">Oven Temp / Gas mark</label>
+                <input id="temp" name="temp" type="number" class="validate" value="{{ recipe_details.temp }}">
+                <label for="temp">Oven Temp / Gas mark</label>
                 <span class="helper-text">example = 60 / 5</span>
             </div>
             <div class="input-field col l4 s4">
                 <i class="material-icons prefix">whatshot</i>
                 <input id="cook_time" name="cook_time" type="number" class="validate" value="{{ recipe_details.time }}">
                 <span class="helper-text">example = 60 mins</span>
-                <label for="icon_prefix">Amount of cooking time?</label>
+                <label for="cook_time">Amount of cooking time?</label>
             </div>
             <div class="input-field col l4 s4">
                 <i class="material-icons prefix">timelapse</i>
                 <input id="prep_time" name="prep_time" type="number" class="validate" value="{{ recipe_details.prep }}">
-                <label for="icon_prefix">Preparation time?</label>
+                <label for="prep_time">Preparation time?</label>
                 <span class="helper-text">example = 60 mins</span>
 
             </div>
         </div>
         <div  class="row">
             <div id="list" class="input-field col l3 s12">
-                <label for="icon_prefix">Ingredients</label>
+                <label for="ingredients">Ingredients</label>
                 <input type="hidden" name="ingredients" value="">
                 <i class="material-icons prefix">subject</i> 
                 {% for ingredient in ingredients %}
@@ -55,7 +55,7 @@
                 </a>
             </div>
             <div id="method_list" class="input-field col l9 s12">
-                <label for="icon_prefix">Method</label>
+                <label for="methods">Method</label>
                 <i class="material-icons prefix">subject</i> 
                 {% for methods in method %}
                 <input type="hidden" name="methods" value="">

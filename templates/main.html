@@ -1,7 +1,9 @@
 {% extends "base.html" %} {% block content %}
 
 <h4> Welcome {{ session.name }}</h4>
- 
+
+<!---------- QUICK SEARCH AND ADVANCED BUTTONS --------->
+
 <div class="row">
     <div class="input-field search_text inline col s3 l4 ">
         <input id="search" type="text" class="validate">
@@ -18,31 +20,33 @@
         {% endfor %}
         </select>   
     </div>
-</div>
-<div class="row">
-    <a href={{ url_for('filter_recipes') }}>Advanced Search</a>
+     <button id="recipe_search_button" class="btn waves-effect waves-light" type="submit" name="action" onclick="recipeSearch()">
+        <i class="material-icons right quick-search">search</i>
+    </button>
 </div>
 
 <div class="row">
-    <button id="recipe_search_button" class="btn waves-effect waves-light" type="submit" name="action" onclick="recipeSearch()">
-Search
-<i class="material-icons right">search</i>
-</button>
+    <button class="btn waves-effect blue advanced-search">
+        <a href={{ url_for('filter_recipes') }}>Advanced Search</a>
+        <i class="material-icons right">search</i>
+    </button>
     <button id="search_reset" class="btn waves-effect waves-light grey" type="reset" name="reset" onclick="recipeReset()">
-Reset 
-<i class="material-icons right">clear</i>
-</button>
+        Reset 
+        <i class="material-icons right">clear</i>
+    </button>
 </div>
+
+<!--------- DISPLAYING RECIPE CARDS ---------->
 
 <div class="row recipe_wrapper">
     {% for recipe in all_recipes %}
-    <div class="card col xl4 l6 s6 recipe-display hoverable">
+    <div class="card col s6 m4 l4 recipe-display hoverable">
         <div class="card-image waves-effect waves-block waves-light">
             <img class="activator recipe_image_card" src="/static/images/{{ recipe.image }}">
         </div>
         <div class="card-content">
             <span class="card-title activator grey-text text-darken-4 recipes_title">
-                <small>Recipe : </small>{{ recipe.recipe_name.upper() }}
+                <small>Recipe : </small>{{ recipe.recipe_name.capitalize() }}
                 <i class="material-icons right">more_vert</i>
             </span>
             <span class="card-title activator grey-text text-darken-4 recipes_cuisine">
@@ -51,12 +55,12 @@ Reset
             {% for i in rating %}
                 {% for u in i %}
                     {% if u["recipe_id"] == recipe.recipe_id %}
-                        <p class="rating">RATING : {{ u["AVG(rating)"]|round(1, 'floor') }} / 5 </p>
+                        <span class="new badge rating" data-badge-caption="Rating">{{ u["AVG(rating)"]|round(1, 'floor') }} / 5</span>
                     {% endif %}
                 {% endfor %}
             {% endfor %}   
-            <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn ">View Recipe</a>
-            <a href="/quick_add/{{ recipe.recipe_id }}" class="waves-effect blue btn ">Add Recipe</a>
+            <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn ">View</a>
+            <a href="/quick_add/{{ recipe.recipe_id }}" class="waves-effect blue btn ">Add</a>
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>

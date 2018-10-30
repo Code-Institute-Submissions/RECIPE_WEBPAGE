@@ -123,15 +123,18 @@
 .recipe-input {
     border-bottom: none !important;
 }
+
 .filtered {
     margin-top: 10px;
 }
-.search_text{
-    margin:0;
+
+.search_text {
+    margin: 0;
 }
+
 .input-field.col label {
-     font-weight: 400;
-     color:black;
+    font-weight: 400;
+    color: black;
 }
 
 /* cuisines */
@@ -157,31 +160,26 @@
 .login-signup {
     margin-top: 20px;
 }
-.card {
-    margin: 0.5rem 10px 1rem 0;
-    
-}
-.row .col.s6 {
-    width: 48%;
-    margin-left: auto;
-    left: auto;
-    right: auto;
-}
+
 .switch {
     margin-top: 20px;
 }
 
-.filter_button {
+.recipes-display {
     margin-top: 20px;
+    position: relative;
 }
+.rating {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    z-index: 2;
+    font-size: 1rem !important;
 
-@media only screen and (min-width: 1201px){
-    .row .col.xl4 {
-    width: 32.333333%;
-    margin-left: auto;
-    left: auto;
-    right: auto;
-    }
 }
-
-
+.advanced-search a {
+    color: white;
+}
+.quick-search {
+    margin: 0 !important;
+}

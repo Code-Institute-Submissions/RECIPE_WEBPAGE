@@ -396,10 +396,10 @@ def filter_recipes():
         
         recipe = request.form["recipe_name"]
         cuisine = request.form["cuisine"]
-        serves = request.form["serves"]
-        rating = request.form["rating"]
-        prep = request.form["prep_time"]
-     
+        serves = int(request.form["serves"])
+        rating = int(request.form["rating"])
+        prep = int(request.form["prep_time"])
+        
         statement = "SELECT * FROM RECIPES WHERE 1"
         parameters  = []
         
@@ -433,8 +433,6 @@ def filter_recipes():
             return redirect(url_for('filter_recipes'))
             
     return render_template("filter_recipes.html")
-
-# NEED TO SORT OUT REVIEWS TO BE JOINED ONTO RECIPES FOR MATCHING..
 
 @app.route("/logout")
 def logout():

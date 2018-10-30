@@ -44,7 +44,7 @@ function addIngredient(e) {
 function addMethod(e) {
 
     let list = document.getElementById("method_list"),
-         btn = document.getElementById("method-btn"),
+        btn = document.getElementById("method-btn"),
         newElement = document.createElement("input");
         
     newElement.setAttribute("type", "text");
