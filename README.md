@@ -3,7 +3,7 @@
 #Little Recipes 
 
 
-[View Little Recipes Webpage]( https://riddle-game-milestone-project.herokuapp.com/)
+[View Little Recipes Webpage]( https://recipe-page-milestone-project.herokuapp.com/)
 
 Little Recipes website was created for storing all your favourite recipes or to help you find some inspiration on trying something new that others have created.
 Adding recipes to your own login domain couldn't be easier with a simple form to fill in that lets you name your recipe and a type of cuisine. Simple to add ingredients
