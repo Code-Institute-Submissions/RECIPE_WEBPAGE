@@ -10,7 +10,7 @@ UPLOAD_FOLDER = "./static/images"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
-app.secret_key="some secret"
+app.secret_key= "some secret"
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
