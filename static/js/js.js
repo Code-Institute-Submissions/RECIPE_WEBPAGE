@@ -31,7 +31,7 @@ $(document).ready(function() {
 
 function addIngredient(e) {
 
-    let list = document.getElementById("list"),
+    const list = document.getElementById("list"),
         btn = document.getElementById("ingredients-btn"),
         newElement = document.createElement("input");
     
@@ -43,7 +43,7 @@ function addIngredient(e) {
 
 function addMethod(e) {
 
-    let list = document.getElementById("method_list"),
+    const list = document.getElementById("method_list"),
         btn = document.getElementById("method-btn"),
         newElement = document.createElement("input");
         
@@ -59,13 +59,14 @@ let searchBar = document.getElementById("search");
 
 if(searchBar){
     searchBar.addEventListener("keyup", (e)=> {
-    let searchValue = searchBar.value.toUpperCase(),
+        
+    const searchValue = searchBar.value.toUpperCase(),
         recipeBoxes = document.querySelectorAll(".recipe-display"),
         recipeTitle = document.querySelectorAll(".recipes_title");
     
     for(let i = 0; i < recipeBoxes.length; i++){
         
-        let title = recipeTitle[i].innerHTML;
+        const title = recipeTitle[i].innerHTML.toUpperCase();
    
         if (title.indexOf(searchValue) > -1){
             recipeBoxes[i].style.display = "";
@@ -78,16 +79,16 @@ if(searchBar){
 }
 
 
-let cuisine = document.getElementById("select_cuisine"),
+const cuisine = document.getElementById("select_cuisine"),
     recipeBoxes = document.querySelectorAll(".recipe-display"),
     recipeCuisine = document.querySelectorAll(".recipes_cuisine");
 
 function recipeSearch(e){
-    let cuisineValue = cuisine.value.toUpperCase();
+    const cuisineValue = cuisine.value.toUpperCase();
 
     for(let i = 0; i < recipeBoxes.length; i++){
         
-        let title = recipeCuisine[i].innerHTML.toUpperCase();
+        const title = recipeCuisine[i].innerHTML.toUpperCase();
        
         if (title.indexOf(cuisineValue) > -1){
             recipeBoxes[i].style.display = "";
@@ -97,7 +98,7 @@ function recipeSearch(e){
     }
 }
     
-let resetSearch = document.getElementById("search_reset");
+const resetSearch = document.getElementById("search_reset");
 
 function recipeReset(e){
     location.reload();

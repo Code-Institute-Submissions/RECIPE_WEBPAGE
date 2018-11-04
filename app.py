@@ -90,9 +90,8 @@ def login():
 
 @app.route("/main/")
 def main():
-    username = session["name"]
-
-    recipe = cursor.execute("SELECT * FROM RECIPES ORDER BY date_entered DESC")
+    
+    cursor.execute("SELECT * FROM RECIPES ORDER BY date_entered DESC")
     all_recipes = cursor.fetchall()
     
     cursor.execute("SELECT DISTINCT cuisine FROM RECIPES")

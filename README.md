@@ -1,6 +1,6 @@
 ## Data Centric Milestone Project
 
-#Little Recipes 
+Little Recipes 
 
 
 [View Little Recipes Webpage]( https://recipe-page-milestone-project.herokuapp.com/)
