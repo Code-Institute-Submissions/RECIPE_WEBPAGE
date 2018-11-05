@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 import pymysql
 from werkzeug.utils import secure_filename
-from sql_connection import connection_import
+
 
 """upload path to store photos submitted from recipes"""
 
@@ -10,7 +10,8 @@ UPLOAD_FOLDER = "./static/images"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
-app.secret_key= "some secret"
+app.secret_key= os.environ.get("KEY")
+
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -20,8 +21,12 @@ def allowed_file(filename):
 
 """ connection to my sql database """
 
-# Connect to the sql database
-connection = connection_import
+# <------------- Connect to the sql database -------------->
+connection = pymysql.connect(host=os.environ.get("DB_HOST"),
+                             user=os.environ.get("DB_USER"),
+                             password=os.environ.get("DB_PASSWORD"),
+                             db=os.environ.get("DB_NAME"))
+             
 cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
