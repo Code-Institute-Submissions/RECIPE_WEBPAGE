@@ -113,7 +113,14 @@
 .recipe_list h3 {
     margin-top: 10px;
 }
-
+.view_checkbox span {
+    color:black;
+    margin: 4px 0;
+}
+.tick:checked ~ span {
+    text-decoration: line-through;
+    opacity: .5;
+}
 .recipe_image {
     height: 350px;
     width: 350px;
@@ -176,6 +183,9 @@
     z-index: 2;
     font-size: 1rem !important;
 
+}
+.review_rating {
+    margin-right: 30px;
 }
 .advanced-search a {
     color: white;

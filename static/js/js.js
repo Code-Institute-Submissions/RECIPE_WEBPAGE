@@ -13,16 +13,19 @@ $(document).ready(function() {
     $('.recipe-form').on('submit', function(e) {
         let values = [];
         $('[name=ingredient]').each(function(index, item) {
-            values.push($(item).val());
+            if (item.value != ""){
+                values.push($(item).val());
+            }
         });
-        $('[name=ingredients]').val(values.join(','));
+        $('[name=ingredients]').val(values.join('|'));
         
         let method_values = [];
         $('[name=method]').each(function(index, item) {
-            method_values.push($(item).val());
+            if (item.value != ""){
+                method_values.push($(item).val());
+            }
         });
-        $('[name=methods]').val(method_values.join('-'));
-        
+        $('[name=methods]').val(method_values.join('|'));
     });
 });
 

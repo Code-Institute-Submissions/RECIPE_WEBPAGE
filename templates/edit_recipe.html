@@ -56,13 +56,14 @@
             </div>
             <div id="method_list" class="input-field col l9 s12">
                 <label for="methods">Method</label>
+                <input type="hidden" name="methods" value="">
                 <i class="material-icons prefix">subject</i> 
                 {% for methods in method %}
-                <input type="hidden" name="methods" value="">
                 <input id="method" name="method" type="text" class="validate" value="{{ methods }}"> 
                 {% endfor %}
                  <a id="method-btn" class="waves-effect waves-light btn-small" onclick="addMethod()">
-                    <i class="material-icons left">add</i>add method
+                    <i class="material-icons left">add</i>
+                    add method
                 </a>
             </div>
         </div>

@@ -52,10 +52,10 @@
             <span class="card-title activator grey-text text-darken-4 recipes_cuisine">
                 <small>Cuisine :</small> {{ recipe.cuisine.capitalize() }}
             </span>
-            {% for i in rating %}
-                {% for u in i %}
-                    {% if u["recipe_id"] == recipe.recipe_id %}
-                        <span class="new badge rating" data-badge-caption="Rating">{{ u["AVG(rating)"]|round(1, 'floor') }} / 5</span>
+            {% for data in rating %}
+                {% for ratings in data %}
+                    {% if ratings["recipe_id"] == recipe.recipe_id %}
+                        <span class="new badge rating" data-badge-caption="Rating">{{ ratings["AVG(rating)"]|round(1, 'floor') }} / 5</span>
                     {% endif %}
                 {% endfor %}
             {% endfor %}   
@@ -74,13 +74,4 @@
     {% endfor %}
 </div>
 
-<!--<ul class="pagination">-->
-<!--        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>-->
-<!--        <li class="active"><a href="#!">1</a></li>-->
-<!--        <li class="waves-effect"><a href="/next/{{all_recipes}}">2</a></li>-->
-<!--        <li class="waves-effect"><a href="#!">3</a></li>-->
-<!--        <li class="waves-effect"><a href="#!">4</a></li>-->
-<!--        <li class="waves-effect"><a href="#!">5</a></li>-->
-<!--        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>-->
-<!--    </ul>-->
 {% endblock %}

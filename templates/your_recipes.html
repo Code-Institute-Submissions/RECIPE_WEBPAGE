@@ -5,36 +5,23 @@
 <table class="highlight">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Recipe</th>
             <th>Date / Time</th>
-            <th>Rating</th>
         </tr>
     </thead>
 
     <tbody>
-        {% for i in your_recipes %}
+        {% for recipe in your_recipes %}
         <tr>
-            <td>{{ i.recipe_id }}</td>
-            <td>{{ i.recipe_name }}</td>
-            <td>{{ i.date_entered }}</td>
-            <td>rating to be displayed</td>
+            <td>{{ recipe.recipe_name }}</td>
+            <td>{{ recipe.date_entered }}</td>
             <td>
-                <a href="/view_recipe/{{ i.recipe_id }}" class="waves-effect blue btn btn_small">View</a>
-                <a href="/edit_recipe/{{ i.recipe_id }}" class="waves-effect waves-light btn btn_small">Edit</a>
-                <a class="waves-effect red btn modal-trigger" href="#modal1">Delete</a>
+                <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect blue btn btn_small">View</a>
+                <a href="/edit_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn btn_small">Edit</a>
+                <a class="waves-effect red btn modal-trigger" href="/delete_recipe/{{ recipe.recipe_id }}">Delete</a>
 
             </td>
         </tr>
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <h4>Are you sure you want to delete {{i.recipe_name }}</h4>
-            </div>
-            <div class="modal-footer">
-                <a href="/delete_recipe/{{ i.recipe_id }}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
-            </div>
-        </div>
         {% endfor %}
     </tbody>
 

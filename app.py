@@ -127,8 +127,16 @@ def your_recipes():
 
     cursor.execute("SELECT * FROM RECIPES WHERE user_id = %s", userId)
     filtered_recipes = cursor.fetchall()
+    
+    ratings = []
+    
+    for rate in filtered_recipes:
+        id = rate["recipe_id"]
+        cursor.execute("SELECT * FROM REVIEWS WHERE recipe_id = %s",(id))
+        all_ratings = cursor.fetchall()
+        ratings.append(all_ratings)
         
-    return render_template("your_recipes.html", your_recipes = filtered_recipes )
+    return render_template("your_recipes.html", your_recipes=filtered_recipes, rating=ratings)
 
 @app.route("/view_recipe/<int:id>")
 def view_recipe(id):
@@ -142,7 +150,7 @@ def view_recipe(id):
     cursor.execute("SELECT * FROM REVIEWS WHERE recipe_id = %s", (id))
     reviews = cursor.fetchall()
     
-    method = recipesId["method"].split("-")
+    method = recipesId["method"].split("|")
         
     return render_template("view_recipe.html", recipe = recipesId, ingredient = recipes_ingredients, methods = method, id=id, reviews=reviews)
     
@@ -195,7 +203,7 @@ def add_recipe():
         
         connection.commit()
 
-        form_ingredients = ingredient.split(",")
+        form_ingredients = ingredient.split("|")
         
         cursor.execute("SELECT recipe_id FROM RECIPES WHERE recipe_id=(SELECT MAX(recipe_id) FROM RECIPES)")
         
@@ -254,9 +262,9 @@ def edit_recipe(id):
     cursor.execute("SELECT * FROM INGREDIENTS INNER JOIN RECIPES_INGREDIENTS ON ingredient_id = ingredients_id WHERE recipes_id = %s", id)
     
     ingredients = cursor.fetchall()
-    
-    method = recipe["method"].split("-")
 
+    method = recipe["method"].split("|")
+    
     if request.method == "POST":
         
         recipe_name = request.form["recipe_name"]
@@ -267,7 +275,8 @@ def edit_recipe(id):
         prep = request.form["prep_time"]
         method = request.form["methods"]
         image = request.form["image"]
-        ingredients = request.form["ingredients"].split(",")
+        ingredients = request.form["ingredients"].split("|")
+         
          
 
         cursor.execute('UPDATE RECIPES SET recipe_name=%s, cuisine=%s, serves=%s, temp=%s, time=%s, prep=%s, method=%s, image=%s WHERE recipe_id=%s',(recipe_name, cuisine, serves, temp, time, prep, method, image, id))
@@ -447,4 +456,4 @@ def logout():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)
