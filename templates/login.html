@@ -41,6 +41,8 @@
                     <button class="btn waves-effect waves-light" type="submit" action="Submit">Login<i class="material-icons right">send</i></button>
                 </div>
             </form>
+            <a href="{{ url_for('register') }}" class="waves-effect waves-light btn blue"><i class="material-icons left">account_circle</i>Register</a>
+
             {% include 'includes/_messages.html' %}
         </div>
     </div>

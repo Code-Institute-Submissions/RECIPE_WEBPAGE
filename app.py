@@ -60,7 +60,7 @@ def register():
                 return redirect(url_for("login"))
                 
             else:
-                flash("Passwords don't match")
+                flash("Passwords don't match", "red black-text lighten-2")
                     
     return render_template("register.html")
     
