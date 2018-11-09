@@ -22,10 +22,10 @@ def allowed_file(filename):
 """ connection to my sql database """
 
 # <------------- Connect to the sql database -------------->
-connection = pymysql.connect(host=os.environ.get("DB_HOST"),
-                             user=os.environ.get("DB_USER"),
-                             password=os.environ.get("DB_PASSWORD"),
-                             db=os.environ.get("DB_NAME"))
+connection = pymysql.connect(host="db1.treagus.me",
+                             user="russ",
+                             password="Letmein1!",
+                             db="russ")
                         
 cursor = connection.cursor(pymysql.cursors.DictCursor)
 
