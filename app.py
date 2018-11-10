@@ -22,11 +22,11 @@ def allowed_file(filename):
 """ connection to my sql database """
 
 # <------------- Connect to the sql database -------------->
-connection = pymysql.connect(host="db1.treagus.me",
-                             user="russ",
-                             password="Letmein1!",
-                             db="russ")
-                        
+connection = pymysql.connect(host=os.environ.get("DB_HOST"),
+                             user=os.environ.get("DB_USER"),
+                             password=os.environ.get("DB_PASSWORD"),
+                             db=os.environ.get("DB_NAME"))
+             
 cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
@@ -60,7 +60,7 @@ def register():
                 return redirect(url_for("login"))
                 
             else:
-                flash("Passwords don't match", "red black-text lighten-2")
+                flash("Passwords don't match", red black-text lighten-2)
                     
     return render_template("register.html")
     
