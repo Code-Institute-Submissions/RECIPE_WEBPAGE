@@ -2,16 +2,13 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 import pymysql
 from werkzeug.utils import secure_filename
-
-print(os.environ.get('DB_URL', 'Not found or set') + ' This is the db connection')
-
 """upload path to store photos submitted from recipes"""
 
 UPLOAD_FOLDER = "./static/images"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
-app.secret_key= os.environ.get('KEY')  #this is not set
+app.secret_key= os.environ.get('KEY') 
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -20,9 +17,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 """ connection to my sql database """
-print('This is a test here on line 22 of app.py')
-print(os.environ.get('DB_HOST', 'Not found or set') + ' This is the db connection')
-#print(os.environ.get("DB_HOST") + ' DB DETAILS') #wil lthis work no i dont think so it has to be inside a route
+
 # <------------- Connect to the sql database -------------->
 connection = pymysql.connect(host=os.environ.get("DB_HOST"),
                              user=os.environ.get("DB_USER"),
@@ -37,7 +32,6 @@ cursor = connection.cursor(pymysql.cursors.DictCursor)
 @app.route("/")
 @app.route("/index")
 def index():
-    print(os.environ.get("DB_HOST", 'Not found or set') + ' This is the db connection')
     return render_template("index.html")
 
 @app.route("/register", methods=["POST","GET"])
@@ -458,4 +452,4 @@ def logout():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=os.environ.get('PORT'),
-            debug=True)
+            debug=False)
