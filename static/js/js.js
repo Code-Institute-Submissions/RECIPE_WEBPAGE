@@ -61,11 +61,13 @@ function addMethod(e) {
 let searchBar = document.getElementById("search");
 
 if(searchBar){
-    searchBar.addEventListener("keyup", (e)=> {
+    searchBar.addEventListener("keyup", (e) => {
         
     const searchValue = searchBar.value.toUpperCase(),
-        recipeBoxes = document.querySelectorAll(".recipe-display"),
-        recipeTitle = document.querySelectorAll(".recipes_title");
+          recipeBoxes = document.querySelectorAll(".recipe-display"),
+          recipeTitle = document.querySelectorAll(".recipes_title");
+    
+    console.log(recipeBoxes)
     
     for(let i = 0; i < recipeBoxes.length; i++){
         

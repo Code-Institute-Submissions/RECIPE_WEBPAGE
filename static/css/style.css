@@ -59,13 +59,20 @@
 
 /* main page */
 
+.flow-text p {
+    font-size: 0.8em;
+}
+
 .label-icon {
     color: black;
 }
 
 .recipe_image_card {
-    max-height: 150px;
-    max-width: auto;
+    max-height: 300px !important;
+    width: 100%;
+}
+#search_recipes {
+    margin-bottom: 10px;
 }
 
 /* Recipe pages */
@@ -121,10 +128,8 @@
     text-decoration: line-through;
     opacity: .5;
 }
-.recipe_image {
-    height: 350px;
-    width: 350px;
-    background-color: pink;
+.recipe_image_card {
+    max-height: 350px !important;
 }
 
 .recipe-input {
@@ -172,10 +177,6 @@
     margin-top: 20px;
 }
 
-.recipes-display {
-    margin-top: 20px;
-    position: relative;
-}
 .rating {
     position: absolute;
     top: 10px;

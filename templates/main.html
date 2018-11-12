@@ -40,37 +40,34 @@
 
 <div class="row recipe_wrapper">
     {% for recipe in all_recipes %}
-    <div class="card col s6 m4 l4 recipe-display hoverable">
-        <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator recipe_image_card" src="/static/images/{{ recipe.image }}">
-        </div>
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4 recipes_title">
-                <small>Recipe : </small>{{ recipe.recipe_name.capitalize() }}
-                <i class="material-icons right">more_vert</i>
-            </span>
-            <span class="card-title activator grey-text text-darken-4 recipes_cuisine">
-                <small>Cuisine :</small> {{ recipe.cuisine.capitalize() }}
-            </span>
-            {% for data in rating %}
-                {% for ratings in data %}
-                    {% if ratings["recipe_id"] == recipe.recipe_id %}
-                        <span class="new badge rating" data-badge-caption="Rating">{{ ratings["AVG(rating)"]|round(1, 'floor') }} / 5</span>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}   
-            <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn ">View</a>
-            <a href="/quick_add/{{ recipe.recipe_id }}" class="waves-effect blue btn ">Add</a>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+    <div class="row recipe-display">
+      <div class="col s7 push-s5">
+        <span class="flow-text">
+            <p class="recipes_title">Recipe : {{ recipe.recipe_name.capitalize() }}</p>
+            <p class="recipes_cuisine">Cuisine : {{ recipe.cuisine.capitalize() }}</p>
             <p>Preparation time: {{ recipe.prep }} mins</p>
             <p>Serves: {{ recipe.serves }} people</p>
             <p>Cooking time: {{ recipe.time }} </p>
             <p>Published by: {{ recipe.name }}</p>
             <p>Published by: {{ recipe.date_entered }}</p>
+            <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn ">View</a>
+            <a href="/quick_add/{{ recipe.recipe_id }}" class="waves-effect blue btn ">Add</a>
+        </span>
         </div>
-    </div>
+        <div class="col s5 pull-s7">
+            <span class="flow-text">
+                <img class="responsive-img recipe_image_card" src="/static/images/{{ recipe.image }}">
+                {% for data in rating %}
+                    {% for ratings in data %}
+                        {% if ratings["recipe_id"] == recipe.recipe_id %}
+                            <span class="new badge rating" data-badge-caption="Rating">
+                                {{ ratings["AVG(rating)"]|round(1, 'floor') }} / 5
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}   
+              </div>
+         </div>
     {% endfor %}
 </div>
 

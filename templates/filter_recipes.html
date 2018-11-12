@@ -38,27 +38,27 @@
     </form>
 </div>
 
-<div class="row recipes-display">
+<div class="row">
     {% for all in all_recipes %}
-    <div class="card col s3 m3 l3">
-        <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="/static/images/{{ all.image }}">
-        </div>
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"><small>Recipe : </small>{{ all.recipe_name|capitalize }}
-            <i class="material-icons right">more_vert</i></span>
-            <p><a href="/view_recipe/{{ all.recipe_id }}">View recipe</a></p>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><small>Cuisine : </small>{{ all.cuisine|capitalize }}<i class="material-icons right">close</i></span>
+    <div class="row">
+      <div class="col s7 push-s5">
+        <span class="flow-text">
+            <p>Recipe : {{ all.recipe_name.capitalize() }}</p>
+            <p>Cuisine : {{ all.cuisine.capitalize() }}</p>
             <p>Preparation time: {{ all.prep }} mins</p>
             <p>Serves: {{ all.serves }} people</p>
             <p>Cooking time: {{ all.time }} </p>
             <p>Published by: {{ all.name }}</p>
-            <p>Published: {{ all.date_entered }}</p>
+            <p>Published by: {{ all.date_entered }}</p>
+            <a href="/view_recipe/{{ all.recipe_id }}" class="waves-effect waves-light btn ">View</a>
+            <a href="/quick_add/{{ all.recipe_id }}" class="waves-effect blue btn ">Add</a>
+        </span>
         </div>
-    </div>
+        <div class="col s5 pull-s7">
+            <span class="flow-text">
+                <img class="responsive-img recipe_image_card" src="/static/images/{{ all.image }}">
+         </div>
+         
     {% endfor %}
 </div>
-
 {% endblock %}
