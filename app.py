@@ -20,6 +20,7 @@ def allowed_file(filename):
 
 """ connection to my sql database """
 print('This is a test here on line 22 of app.py')
+print(os.environ.get('DB_HOST', 'Not found or set') + ' This is the db connection')
 #print(os.environ.get("DB_HOST") + ' DB DETAILS') #wil lthis work no i dont think so it has to be inside a route
 # <------------- Connect to the sql database -------------->
 connection = pymysql.connect(host=os.environ.get("DB_HOST"),
