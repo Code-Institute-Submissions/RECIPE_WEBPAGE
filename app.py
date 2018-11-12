@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 import pymysql
 from werkzeug.utils import secure_filename
 
+print(os.environ.get('DB_URL', 'Not found or set') + ' This is the db connection')
 
 """upload path to store photos submitted from recipes"""
 
