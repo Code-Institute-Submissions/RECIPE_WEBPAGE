@@ -3,13 +3,16 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 import pymysql
 from werkzeug.utils import secure_filename
 
+
 """upload path to store photos submitted from recipes"""
 
 UPLOAD_FOLDER = "./static/images"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
-app.secret_key= os.environ.get("KEY")
+app.secret_key= os.environ.get('KEY') 
+
+print(app.secret_key)
 
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -34,7 +37,7 @@ cursor = connection.cursor(pymysql.cursors.DictCursor)
 @app.route("/")
 @app.route("/index")
 def index():
-    
+    print(os.environ.get("DB_HOST"))
     return render_template("index.html")
 
 @app.route("/register", methods=["POST","GET"])
