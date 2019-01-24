@@ -1,7 +1,9 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 import pymysql
+import json
 from werkzeug.utils import secure_filename
+
 """upload path to store photos submitted from recipes"""
 
 UPLOAD_FOLDER = "./static/images"
@@ -100,7 +102,7 @@ def main():
     
     ids = []
     rating = []
-    
+ 
     for i in all_recipes:
         ids.append(i['recipe_id'])
     
@@ -443,6 +445,28 @@ def filter_recipes():
             
     return render_template("filter_recipes.html")
 
+@app.route("/stats/")
+def stats():
+    
+    cursor.execute("SELECT * FROM RECIPES")
+    recipes = cursor.fetchall() 
+ 
+    Recipes = []
+    for recipe in recipes:
+        recipeDict = {
+            "recipe_name": recipe['recipe_name'],
+            "recipe_time": recipe['time'],
+            "recipe_serves": recipe['serves'],
+            "recipe_prep": recipe['prep'],
+            "recipe_cuisine": recipe['cuisine'],
+        }
+        Recipes.append(recipeDict)
+        
+    with open("static/recipes/recipes.json", "w") as json_data:  
+        json.dump(Recipes,json_data, indent=4)
+            
+    return render_template("stats.html")
+    
 @app.route("/logout")
 def logout():
     session.clear()
@@ -452,4 +476,4 @@ def logout():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=os.environ.get('PORT'),
-            debug=False)
+            debug=True)

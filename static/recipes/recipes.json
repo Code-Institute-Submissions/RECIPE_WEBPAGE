@@ -1,0 +1,37 @@
+[
+    {
+        "recipe_time": 120,
+        "recipe_name": "Roast chicken",
+        "recipe_serves": 4,
+        "recipe_prep": 30,
+        "recipe_cuisine": "Home"
+    },
+    {
+        "recipe_time": 30,
+        "recipe_name": "Singapore noodles",
+        "recipe_serves": 2,
+        "recipe_prep": 15,
+        "recipe_cuisine": "chinese"
+    },
+    {
+        "recipe_time": 180,
+        "recipe_name": "Slow cooker pork loin",
+        "recipe_serves": 6,
+        "recipe_prep": 30,
+        "recipe_cuisine": "English"
+    },
+    {
+        "recipe_time": 90,
+        "recipe_name": "Roast chicken",
+        "recipe_serves": 4,
+        "recipe_prep": 30,
+        "recipe_cuisine": "English"
+    },
+    {
+        "recipe_time": 100,
+        "recipe_name": "Lancaster Hotpot",
+        "recipe_serves": 6,
+        "recipe_prep": 40,
+        "recipe_cuisine": "Main"
+    }
+]

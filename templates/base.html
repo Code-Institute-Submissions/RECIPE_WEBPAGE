@@ -18,6 +18,7 @@
                 <ul id="nav-left" class="left hide-on-med-and-down">
                     <li><a href="{{ url_for('main') }}">All Recipes</a></li>
                     <li><a href="{{ url_for('your_recipes') }}">Your Recipes</a></li>
+                    <li><a href="{{ url_for('stats') }}">Statistics</a></li>
                 </ul>
                 <ul id="nav-right" class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
@@ -27,6 +28,7 @@
         <ul class="sidenav" id="mobile-nav">
             <li><a href="{{ url_for('main') }}">All Recipes</a></li>
             <li><a href="{{ url_for('your_recipes') }}">Your Recipes</a></li>
+            <li><a href="{{ url_for('stats') }}">Statistics</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
     </header>
@@ -34,13 +36,14 @@
         {% include 'includes/_messages.html' %}
         {% block content %} {% endblock %}
     </div>
-
     
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <script type="text/javascript" src="/static/js/js.js"></script>
+    
+
 
     
 </body>

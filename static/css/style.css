@@ -116,7 +116,12 @@
     border-radius: 12px;
     opacity: 0;
 }
+.recipes_title {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-decoration: underline;
+    
 
+}
 .recipe_list h3 {
     margin-top: 10px;
 }
@@ -193,4 +198,8 @@
 }
 .quick-search {
     margin: 0 !important;
+}
+.graphs {
+
+    height: 450px !important;
 }

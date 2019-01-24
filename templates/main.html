@@ -14,7 +14,7 @@
     </div>
     <div class="col s3 l4">
         <select id="select_cuisine">
-        <option value="" disabled selected>By Cuisine</option>
+        <option value="" disabled selected>By Cuisine / Course</option>
         {% for cuisine in cuisines %}
         <option value="{{ cuisine.cuisine}}">{{ cuisine.cuisine.capitalize() }}</option>
         {% endfor %}
@@ -40,11 +40,11 @@
 
 <div class="row recipe_wrapper">
     {% for recipe in all_recipes %}
-    <div class="row recipe-display">
+    <div id="recipe-displays" class="row recipe-display">
       <div class="col s7 push-s5">
         <span class="flow-text">
             <p class="recipes_title">Recipe : {{ recipe.recipe_name.capitalize() }}</p>
-            <p class="recipes_cuisine">Cuisine : {{ recipe.cuisine.capitalize() }}</p>
+            <p class="recipes_cuisine">Cuisine / Course : {{ recipe.cuisine.capitalize() }}</p>
             <p>Preparation time: {{ recipe.prep }} mins</p>
             <p>Serves: {{ recipe.serves }} people</p>
             <p>Cooking time: {{ recipe.time }} </p>
