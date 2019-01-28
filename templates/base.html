@@ -18,7 +18,7 @@
                 <ul id="nav-left" class="left hide-on-med-and-down">
                     <li><a href="{{ url_for('main') }}">All Recipes</a></li>
                     <li><a href="{{ url_for('your_recipes') }}">Your Recipes</a></li>
-                    <li><a href="{{ url_for('stats') }}">Statistics</a></li>
+                    <li><a href="{{ url_for('stats') }}" onclick="getResults()">Statistics</a></li>
                 </ul>
                 <ul id="nav-right" class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>

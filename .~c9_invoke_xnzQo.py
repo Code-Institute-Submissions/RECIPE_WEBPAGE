@@ -238,8 +238,6 @@ def add_recipe():
                     
             connection.commit()
             
-            stats()
-            
         flash("Thank you for adding your recipe", "blue black-text lighten-2")
     
         return redirect(url_for("your_recipes"))
@@ -449,6 +447,7 @@ def filter_recipes():
 
 @app.route("/stats/")
 def stats():
+    
     cursor.execute("SELECT * FROM RECIPES")
     recipes = cursor.fetchall() 
     Recipes = []

@@ -154,23 +154,22 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                     return[numbers, appears];
                 }
             
-                function RemoveDuplicatedName(array){
-                    let RemovedDuplicates = []
-                    for(let i = 0; i < array.length; i++){
-                        if(RemovedDuplicates.indexOf(array[i]) == -1){
-                            RemovedDuplicates.push(array[i])
-                        }
-                    }
-                    return RemovedDuplicates
-                }
+                // function RemoveDuplicatedName(array){
+                //     let RemovedDuplicates = []
+                //     for(let i = 0; i < array.length; i++){
+                //         if(RemovedDuplicates.indexOf(array[i]) == -1){
+                //             RemovedDuplicates.push(array[i])
+                //         }
+                //     }
+                //     return RemovedDuplicates
+                // }
                 
                 let cuisineTotal = CountRecipes(graphCuisine);
-                let cuisineNames = RemoveDuplicatedName(graphCuisine); 
                 var myCuisineChart = new Chart(CuisineChart, {
                     
                     type: 'bar',
                     data: {
-                        labels: cuisineNames,
+                        labels: cuisineTotal[0],
                         datasets: [{
                             data: cuisineTotal[1],
                             backgroundColor: color,
@@ -210,12 +209,11 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                 }); 
                 
                 let servesTotal = CountRecipes(graphServes);
-                let totalResults = RemoveDuplicatedName(graphServes); 
                 
                 var myServeChart = new Chart(ServeChart, {
                     type: 'bar',
                     data: {
-                        labels: totalResults,
+                        labels: servesTotal[0],
                             datasets: [{
                                 data: servesTotal[1],
                                 backgroundColor: color,
