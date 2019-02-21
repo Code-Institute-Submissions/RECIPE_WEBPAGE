@@ -94,7 +94,7 @@ def login():
 @app.route("/main/")
 def main():
     
-    cursor.execute("SELECT * FROM RECIPES ORDER BY recipe_name DESC")
+    cursor.execute("SELECT * FROM RECIPES ORDER BY date_entered DESC")
     all_recipes = cursor.fetchall()
 
     cursor.execute("SELECT DISTINCT cuisine FROM RECIPES")
