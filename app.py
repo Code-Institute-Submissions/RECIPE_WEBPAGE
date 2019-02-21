@@ -94,23 +94,23 @@ def login():
 @app.route("/main/")
 def main():
     
-    cursor.execute("SELECT * FROM RECIPES ORDER BY date_entered DESC")
+    cursor.execute("SELECT * FROM RECIPES ORDER BY recipe_name DESC")
     all_recipes = cursor.fetchall()
-    
+
     cursor.execute("SELECT DISTINCT cuisine FROM RECIPES")
     cuisines = cursor.fetchall()
     
     ids = []
     rating = []
- 
-    for i in all_recipes:
-        ids.append(i['recipe_id'])
+    
+    for recipe in all_recipes:
+        ids.append(recipe['recipe_id'])
     
     for id in ids:
         cursor.execute("SELECT recipe_id,AVG(rating) FROM REVIEWS WHERE recipe_id = %s",(id))
         rate = cursor.fetchall()
-        rating.append(rate)
-
+        rating += rate
+  
     return render_template("main.html", all_recipes=all_recipes, cuisines=cuisines, rating=rating)
 
 # <--------------------- CREATE/READ/UPDATE/DELETE FUNCTIONS ----------------------->

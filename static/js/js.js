@@ -88,7 +88,7 @@ const cuisine = document.getElementById("select_cuisine"),
 
 function recipeSearch(e){
     const cuisineValue = cuisine.value.toUpperCase();
-    console.log(cuisineValue)
+
     for(let i = 0; i < recipeBoxes.length; i++){
         
         const title = recipeCuisine[i].innerHTML.toUpperCase();
@@ -154,16 +154,7 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                     return[numbers, appears];
                 }
             
-                // function RemoveDuplicatedName(array){
-                //     let RemovedDuplicates = []
-                //     for(let i = 0; i < array.length; i++){
-                //         if(RemovedDuplicates.indexOf(array[i]) == -1){
-                //             RemovedDuplicates.push(array[i])
-                //         }
-                //     }
-                //     return RemovedDuplicates
-                // }
-                
+             
                 let cuisineTotal = CountRecipes(graphCuisine);
                 var myCuisineChart = new Chart(CuisineChart, {
                     
@@ -335,7 +326,7 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                                 scaleLabel: {
                                         display: true,
                                         labelString: 'Cooking Time for Recipes (mins)',
-                                    },
+                                },
                             }],
                         }
                     }
