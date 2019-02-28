@@ -34,8 +34,8 @@ $(document).ready(function() {
 function addIngredient(e) {
 
     const list = document.getElementById("list"),
-        btn = document.getElementById("ingredients-btn"),
-        newElement = document.createElement("input");
+          btn = document.getElementById("ingredients-btn"),
+          newElement = document.createElement("input");
     
     newElement.setAttribute("type", "text");
     newElement.setAttribute("name", "ingredient");

@@ -5,13 +5,18 @@
 <div>
     <form method="POST" id="search_recipes">
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s4">
                 <input placeholder="Search by Recipe?" id="recipe_name" name="recipe_name" type="text" class="validate">
                 <label for="recipe_name">Recipe Name?</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s4">
                 <input placeholder="Search by Cuisine or Course" id="cuisine" name="cuisine" type="text" class="validate">
-                <label for="Cuisine">Cuisine / Course?</label></div>
+                <label for="Cuisine">Cuisine / Course?</label>
+            </div>
+            <div class="input-field col s4">
+                <input placeholder="Search by Ingredient" id="ingredient" name="ingredient" type="text" class="validate">
+                <label for="ingredient">Ingredient?</label>
+            </div>
         </div>
         <div class="row">
             <p class="range-field col l4 s4">
@@ -31,10 +36,10 @@
             Search
             <i class="material-icons right">search</i>
         </button>
-        <button id="search_reset" class="btn waves-effect waves-light grey" type="reset" name="reset" onclick="recipeReset()">
-            Reset 
+        <a href="{{ url_for('filter_recipes') }}" class="waves-effect waves-light grey btn ">
+            Reset
             <i class="material-icons right">clear</i>
-        </button>
+        </a>
     </form>
 </div>
 

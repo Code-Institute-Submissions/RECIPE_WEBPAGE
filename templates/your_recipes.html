@@ -2,6 +2,7 @@
 <h4>List of your recipes</h4>
 
 
+<a href={{ url_for('add_recipe') }} class="waves-effect blue btn btn_small switch">Add a recipe</a>
 <table class="highlight">
     <thead>
         <tr>
@@ -13,7 +14,7 @@
     <tbody>
         {% for recipe in your_recipes %}
         <tr>
-            <td>{{ recipe.recipe_name }}</td>
+            <td>{{loop.index}}. {{ recipe.recipe_name }}</td>
             <td>{{ recipe.date_entered }}</td>
             <td>
                 <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect blue btn btn_small">View</a>
@@ -27,6 +28,5 @@
 
 </table>
 
-<a href={{ url_for( 'add_recipe') }} class="waves-effect blue btn btn_small switch">Add a recipe</a> 
 
 {% endblock %}

@@ -1,0 +1,40 @@
+{
+    "build": {
+        "@saveall": true
+    },
+    "format": {
+        "jsbeautify": {
+            "@formatOnSave": false
+        }
+    },
+    "javascript": {
+        "@formatOnSave": false,
+        "@use_jsbeautify": true
+    },
+    "language": {
+        "tern_defs": {
+            "json()": {
+                "browser": {
+                    "enabled": true
+                },
+                "ecma5": {
+                    "enabled": true
+                },
+                "jQuery": {
+                    "enabled": true
+                }
+            }
+        }
+    },
+    "python": {
+        "@formatOnSave": false,
+        "@formatter": "",
+        "@version": "python3"
+    },
+    "run": {
+        "configs": {
+            "@inited": "true",
+            "json()": {}
+        }
+    }
+}
