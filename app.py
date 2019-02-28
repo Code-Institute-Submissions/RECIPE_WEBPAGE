@@ -89,8 +89,7 @@ def login():
 
         else:
             flash("Please check username or password", "red black-text lighten-2")
-                
-        
+
     return render_template("login.html")
     
     
@@ -216,7 +215,7 @@ def add_recipe():
         cursor.execute(
             "INSERT INTO RECIPES(user_id, name, recipe_name, cuisine, serves, temp, time, prep, method, image)"
             " VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (usersId["user_id"], username, recipe_name, cuisine, serves, temp, time, prep, method, Image))
+            (usersId, username, recipe_name, cuisine, serves, temp, time, prep, method, Image))
 
         connection.commit()
 
@@ -300,7 +299,7 @@ def edit_recipe(id):
         ingredients = request.form["ingredients"].split("|")
 
         cursor.execute('UPDATE RECIPES SET recipe_name=%s, '
-                       '\cuisine=%s, '
+                       'cuisine=%s, '
                        'serves=%s, '
                        'temp=%s, '
                        'time=%s, '

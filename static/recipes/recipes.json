@@ -35,10 +35,24 @@
         "recipe_cuisine": "Main"
     },
     {
-        "recipe_name": "12",
+        "recipe_name": "test",
         "recipe_time": 12,
         "recipe_serves": 12,
         "recipe_prep": 12,
-        "recipe_cuisine": "12"
+        "recipe_cuisine": "test"
+    },
+    {
+        "recipe_name": "test",
+        "recipe_time": 12,
+        "recipe_serves": 12,
+        "recipe_prep": 12,
+        "recipe_cuisine": "test"
+    },
+    {
+        "recipe_name": "test",
+        "recipe_time": 12,
+        "recipe_serves": 12,
+        "recipe_prep": 12,
+        "recipe_cuisine": "test"
     }
 ]
