@@ -8,9 +8,8 @@ from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = "./static/images"
 ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
 app = Flask(__name__)
-app.secret_key= os.environ.get('KEY') 
+app.secret_key = os.environ.get('KEY')
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -22,16 +21,14 @@ def allowed_file(filename):
 
 """ connection to my sql database """
 
-# <------------- Connect to the sql database -------------->
 connection = pymysql.connect(host=os.environ.get("DB_HOST"),
                              user=os.environ.get("DB_USER"),
                              password=os.environ.get("DB_PASSWORD"),
                              db=os.environ.get("DB_NAME"))
-             
 cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
-# <-------------- LOGIN AND REGISTER ROUTES --------------->
+# LOGIN AND REGISTER ROUTES
 
 @app.route("/")
 @app.route("/index")
@@ -39,148 +36,117 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/register", methods=["POST","GET"])
+@app.route("/register", methods=["POST", "GET"])
 def register():
-
     if request.method == "POST":
         username = request.form["name"]
-        
         user = cursor.execute("SELECT * FROM USERS WHERE name=%s", [username])
-        
         if user != 0:
-            flash("Sorry this username is taken, please try again", "red black-text lighten-2") 
-
+            flash("Sorry this username is taken, please try again", "red black-text lighten-2")
         else:
             if request.form["password"] == request.form["re-enter"]:
                 cursor.execute("INSERT INTO USERS(name, password) VALUES(%s, %s)",
                                (request.form["name"], request.form["password"]))
-                
                 connection.commit()
-                
                 flash("Welcome to little recipes, username created!!", "blue black-text lighten-2")
-                
                 return redirect(url_for("login"))
-                
             else:
                 flash("Passwords don't match", "red black-text lighten-2")
-                    
     return render_template("register.html")
 
 
-@app.route("/login", methods=["POST","GET"])
+@app.route("/login", methods=["POST", "GET"])
 def login():
-    
     if request.method == "POST":
-        
         username = request.form["name"]
         password = request.form["password"]
         user = cursor.execute("SELECT * FROM USERS WHERE name=%s", [username])
-        
         if user > 0:
             row = cursor.fetchone()
             user_password = row["password"]
-            
             if password == user_password:
                 session['name'] = username
-                
                 return redirect(url_for("main"))
             else:
                 flash("Please check username or password", "red black-text lighten-2")
-
         else:
             flash("Please check username or password", "red black-text lighten-2")
-
     return render_template("login.html")
-    
-    
-# <------------------------ MAIN TEMPLATES ------------------->   
+
+
+# MAIN TEMPLATES
 
 @app.route("/main/")
 def main():
-    
     cursor.execute("SELECT * FROM RECIPES ORDER BY date_entered DESC")
     all_recipes = cursor.fetchall()
-
     cursor.execute("SELECT DISTINCT cuisine FROM RECIPES")
     cuisines = cursor.fetchall()
-    
+
     ids = []
     rating = []
-    
+
     for recipe in all_recipes:
         ids.append(recipe['recipe_id'])
-    
     for id in ids:
-        cursor.execute("SELECT recipe_id,AVG(rating) FROM REVIEWS WHERE recipe_id = %s",(id))
+        cursor.execute("SELECT recipe_id,AVG(rating) FROM REVIEWS WHERE recipe_id = %s", (id))
         rate = cursor.fetchall()
         rating += rate
-  
     return render_template("main.html", all_recipes=all_recipes,
-                                        cuisines=cuisines,
-                                        rating=rating)
+                           cuisines=cuisines,
+                           rating=rating)
 
 
-# <--------------------- CREATE/READ/UPDATE/DELETE FUNCTIONS ----------------------->
+# CREATE/READ/UPDATE/DELETE FUNCTIONS
 
 
 @app.route("/your_recipes/", methods=["POST", "GET"])
 def your_recipes():
-    
     username = session["name"]
-
     cursor.execute("SELECT user_id FROM USERS WHERE name =%s", username)
     userId = cursor.fetchone()["user_id"]
-
     cursor.execute("SELECT * FROM RECIPES WHERE user_id = %s", userId)
     filtered_recipes = cursor.fetchall()
-    
+
     ratings = []
-    
     for rate in filtered_recipes:
         id = rate["recipe_id"]
-        cursor.execute("SELECT * FROM REVIEWS WHERE recipe_id = %s",(id))
+        cursor.execute("SELECT * FROM REVIEWS WHERE recipe_id = %s", (id))
         all_ratings = cursor.fetchall()
         ratings.append(all_ratings)
-        
     return render_template("your_recipes.html", your_recipes=filtered_recipes,
-                                                rating=ratings)
+                           rating=ratings)
 
 
 @app.route("/view_recipe/<int:id>")
 def view_recipe(id):
-    
     cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", id)
     recipesId = cursor.fetchone()
-
     cursor.execute("SELECT * FROM INGREDIENTS "
                    "INNER JOIN RECIPES_INGREDIENTS ON ingredient_id = ingredients_id WHERE recipes_id = %s", id)
     recipes_ingredients = cursor.fetchall()
-    
     cursor.execute("SELECT * FROM REVIEWS WHERE recipe_id = %s", (id))
     reviews = cursor.fetchall()
-    
     method = recipesId["method"].split("|")
-        
-    return render_template("view_recipe.html", recipe = recipesId,
-                                               ingredient = recipes_ingredients,
-                                               methods = method,
-                                               id=id,
-                                               reviews=reviews)
-    
+
+    return render_template("view_recipe.html", recipe=recipesId,
+                           ingredient=recipes_ingredients,
+                           methods=method,
+                           id=id,
+                           reviews=reviews)
+
 
 @app.route("/add_recipe/", methods=["POST", "GET"])
 def add_recipe():
-  
     if request.method == "POST":
 
-        # <------ get id of username ------>
+        # get id of username
 
         username = session['name']
         cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
         usersId = cursor.fetchone()['user_id']
 
-
-        # <------- insert into recipes table ------->
+        #  insert into recipes table
 
         recipe_name = request.form["recipe_name"]
         cuisine = request.form["cuisine"]
@@ -191,7 +157,7 @@ def add_recipe():
         method = request.form["methods"]
         ingredient = request.form["ingredients"]
 
-        # <-------photos upload handler--------->
+        # photos upload handler
 
         """check if the post request has the file part"""
 
@@ -222,10 +188,9 @@ def add_recipe():
         form_ingredients = ingredient.split("|")
 
         cursor.execute("SELECT recipe_id FROM RECIPES WHERE recipe_id=(SELECT MAX(recipe_id) FROM RECIPES)")
-
         recipe_id = cursor.fetchone()["recipe_id"]
 
-        # <------- CHECK IF INGREDIENT EXISTS IN DATABASE --------->
+        # CHECK IF INGREDIENT EXISTS IN DATABASE
 
         cursor.execute("SELECT ingredient FROM INGREDIENTS")
         database_ingredients = cursor.fetchall()
@@ -266,28 +231,25 @@ def add_recipe():
     return render_template("add_recipe.html")
 
 
-@app.route("/edit_recipe/<int:id>", methods=["GET","POST"])
+@app.route("/edit_recipe/<int:id>", methods=["GET", "POST"])
 def edit_recipe(id):
-
     """ get recipe to update and user """
 
     username = session['name']
-    
     cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
-    usersId = cursor.fetchone()["user_id"]
 
     cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", id)
     recipe = cursor.fetchone()
-        
+
     cursor.execute("SELECT * FROM INGREDIENTS "
                    "INNER JOIN RECIPES_INGREDIENTS ON ingredient_id = ingredients_id WHERE recipes_id = %s", id)
-    
+
     ingredients = cursor.fetchall()
 
     method = recipe["method"].split("|")
-    
+    1
     if request.method == "POST":
-        
+
         recipe_name = request.form["recipe_name"]
         cuisine = request.form["cuisine"]
         serves = request.form["serves"]
@@ -308,103 +270,99 @@ def edit_recipe(id):
                        'image=%s'
                        ' WHERE recipe_id=%s',
                        (recipe_name, cuisine, serves, temp, time, prep, method, image, id))
-        
+
         cursor.execute("DELETE FROM RECIPES_INGREDIENTS WHERE recipes_id = %s", (id))
-        
+
         cursor.execute("SELECT ingredient FROM INGREDIENTS")
         database_ingredients = cursor.fetchall()
-        
+
         check_ingredients = []
-        
+
         for values in database_ingredients:
             check_ingredients.append(values["ingredient"])
 
         for ingredient in ingredients:
             if ingredient != "":
-                    
+
                 if ingredient in check_ingredients:
-                    
+
                     cursor.execute("SELECT ingredient_id FROM INGREDIENTS WHERE ingredient = %s", (ingredient))
-                    
+
                     ingredient_database_id = cursor.fetchone()["ingredient_id"]
-                    
+
                 else:
                     cursor.execute("INSERT INTO INGREDIENTS(ingredient) VALUES(%s)", (ingredient))
-                    
+
                     connection.commit()
-                    
+
                     cursor.execute("SELECT ingredient_id FROM INGREDIENTS WHERE ingredient = %s", (ingredient))
-                    
+
                     ingredient_database_id = cursor.fetchone()["ingredient_id"]
-                    
+
                 cursor.execute("INSERT INTO RECIPES_INGREDIENTS(recipes_id, ingredients_id) VALUES(%s, %s)",
                                (id, ingredient_database_id))
-                    
+
                 connection.commit()
-        
+
         flash("Recipe has been updated!", "blue black-text lighten-2")
         return redirect(url_for("your_recipes"))
-    
+
     return render_template("edit_recipe.html", recipe_details=recipe,
-                                               ingredients=ingredients,
-                                               method=method)
+                           ingredients=ingredients,
+                           method=method)
 
 
 @app.route("/delete_recipe/<int:id>/")
 def delete_recipe(id):
-    
-    cursor.execute("DELETE FROM REVIEWS WHERE recipe_id = %s", id) 
-    cursor.execute("DELETE FROM RECIPES_INGREDIENTS WHERE recipes_id = %s", id) 
-    cursor.execute("DELETE FROM RECIPES WHERE recipe_id = %s", id) 
-    
-    connection.commit()
-    
-    flash("Recipe has been deleted!", "green black-text lighten-2")
-        
-    return redirect(url_for("your_recipes"))
-    
-# <------------------ RATING RECIPES / QUICK ADD / FILTER ---------------------> 
+    cursor.execute("DELETE FROM REVIEWS WHERE recipe_id = %s", id)
+    cursor.execute("DELETE FROM RECIPES_INGREDIENTS WHERE recipes_id = %s", id)
+    cursor.execute("DELETE FROM RECIPES WHERE recipe_id = %s", id)
 
-@app.route("/review/<id>", methods=["GET","POST"])
-    
+    connection.commit()
+
+    flash("Recipe has been deleted!", "green black-text lighten-2")
+
+    return redirect(url_for("your_recipes"))
+
+
+# RATING RECIPES / QUICK ADD / FILTER
+
+@app.route("/review/<id>", methods=["GET", "POST"])
 def review(id):
-    
     username = session["name"]
 
     cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", (id))
     recipe = cursor.fetchone()
-    
+
     if request.method == "POST":
-    
         review = request.form["review"]
         rating = request.form["rating"]
-       
+
         cursor.execute("INSERT INTO REVIEWS(recipe_id, review, rating, reviewer) VALUES(%s,%s,%s,%s)",
                        (id, review, rating, username))
-        
+
         connection.commit()
-            
+
         flash("Thank you for your review ", "green black-text lighten-2")
         return redirect(url_for("main"))
-    
+
     return render_template("review.html", recipe=recipe)
 
 
 @app.route("/quick_add/<int:id>")
 def quick_add(id):
-
     username = session["name"]
-   
+
     cursor.execute("SELECT * FROM RECIPES WHERE recipe_id = %s", id)
     quick_add = cursor.fetchall()
-    
+
     cursor.execute("SELECT user_id FROM USERS WHERE name=%s", username)
     newID = cursor.fetchone()
-    
+
     cursor.execute("SELECT * FROM INGREDIENTS "
                    "INNER JOIN RECIPES_INGREDIENTS ON ingredient_id = ingredients_id WHERE recipes_id = %s", id)
     ingredients = cursor.fetchall()
-    
+
     quick_add[0]['user_id'] = newID["user_id"]
     users_id = quick_add[0]["user_id"]
     recipe_name = quick_add[0]["recipe_name"]
@@ -428,7 +386,6 @@ def quick_add(id):
     recipe_id = cursor.fetchone()["recipe_id"]
 
     for ingredient in ingredients:
-
         cursor.execute("INSERT INTO RECIPES_INGREDIENTS(ingredients_id, recipes_id) VALUES(%s, %s)",
                        (ingredient["ingredient_id"], recipe_id))
 
@@ -436,13 +393,12 @@ def quick_add(id):
 
     return redirect(url_for("your_recipes"))
 
-# <--------- FUNCTION FOR SEARCH RECIPES ----------->
+
+#  FUNCTION FOR SEARCH RECIPES
 
 
 @app.route("/filter_recipes/", methods=["POST", "GET"])
 def filter_recipes():
-
-
     if request.method == "POST":
 
         recipe = request.form["recipe_name"]
@@ -499,7 +455,7 @@ def filter_recipes():
 @app.route("/stats/")
 def stats():
     cursor.execute("SELECT * FROM RECIPES")
-    recipes = cursor.fetchall() 
+    recipes = cursor.fetchall()
     Recipes = []
     for recipe in recipes:
         recipeDict = {
@@ -510,10 +466,10 @@ def stats():
             "recipe_cuisine": recipe['cuisine'],
         }
         Recipes.append(recipeDict)
-        
-    with open("static/recipes/recipes.json", "w") as json_data:  
-        json.dump(Recipes,json_data, indent=4)
-            
+
+    with open("static/recipes/recipes.json", "w") as json_data:
+        json.dump(Recipes, json_data, indent=4)
+
     return render_template("stats.html")
 
 
