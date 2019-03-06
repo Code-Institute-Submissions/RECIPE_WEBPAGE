@@ -1,12 +1,5 @@
 [
     {
-        "recipe_name": "Roast chicken",
-        "recipe_time": 120,
-        "recipe_serves": 4,
-        "recipe_prep": 30,
-        "recipe_cuisine": "Home"
-    },
-    {
         "recipe_name": "Singapore noodles",
         "recipe_time": 30,
         "recipe_serves": 2,
@@ -33,20 +26,6 @@
         "recipe_serves": 6,
         "recipe_prep": 40,
         "recipe_cuisine": "Main"
-    },
-    {
-        "recipe_name": "test",
-        "recipe_time": 12,
-        "recipe_serves": 12,
-        "recipe_prep": 12,
-        "recipe_cuisine": "test"
-    },
-    {
-        "recipe_name": "test",
-        "recipe_time": 12,
-        "recipe_serves": 12,
-        "recipe_prep": 12,
-        "recipe_cuisine": "test"
     },
     {
         "recipe_name": "test",
