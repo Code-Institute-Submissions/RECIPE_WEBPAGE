@@ -68,7 +68,7 @@
 }
 
 .recipe_image_card {
-    max-height: 300px !important;
+    max-height: 350px !important;
     width: 100%;
 }
 #search_recipes {
@@ -119,8 +119,6 @@
 .recipes_title {
     font-family: "Comic Sans MS", cursive, sans-serif;
     text-decoration: underline;
-    
-
 }
 .recipe_list h3 {
     margin-top: 10px;
@@ -133,10 +131,6 @@
     text-decoration: line-through;
     opacity: .5;
 }
-.recipe_image_card {
-    max-height: 350px !important;
-}
-
 .recipe-input {
     border-bottom: none !important;
 }

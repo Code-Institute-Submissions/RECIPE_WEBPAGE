@@ -65,16 +65,16 @@
             <div class="file-field input-field">
                 <div class="btn">
                     <span>File</span>
-                    <input type="file" name="file" class="validate">
+                    <input type="file" name="file">
                 </div>
                 <div class="file-path-wrapper">
                     <label>Please upload a photo for your dish</label>
-                    <input class="file-path validate" name="file" type="text" value="">
+                    <input class="file-path" name="file" type="text" onchange="photoAdd()">
                 </div>
             </div>
         </div>
         <div class="row">
-            <button class="btn waves-effect waves-light recipe-button" type="submit">Add Recipe
+            <button id="add-photo" class="btn waves-effect waves-light recipe-button disabled" type="submit">Add Recipe
                 <i class="material-icons right prefix">playlist_add</i>
             </button>
         </div>

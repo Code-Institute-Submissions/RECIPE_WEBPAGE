@@ -28,7 +28,6 @@ $(document).ready(function() {
     });
 });
 
-
 // <---------- Insert lines for recipe form entries -------->
 
 function addIngredient(e) {
@@ -55,7 +54,7 @@ function addMethod(e) {
     list.insertBefore(newElement, btn);
 }
 
-// <--------------- Functions for quick searching on main page recipes -------------->
+// <-Functions for quick searching on main page recipes ->
 
 let searchBar = document.getElementById("search");
 
@@ -107,6 +106,14 @@ function recipeReset(e){
     location.reload();
 }
 
+
+function photoAdd(e){
+    const photoBtn = document.querySelectorAll(".file-path"),
+          recipeSubmit = document.getElementById("add-photo");
+    if(photoBtn.length > 0){
+        recipeSubmit.classList.remove("disabled");
+    }
+}
 
 let ServeChart = document.getElementById("ServingsChart");
     CuisineChart = document.getElementById("CuisinesChart"),

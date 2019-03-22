@@ -14,13 +14,6 @@
         "recipe_cuisine": "English"
     },
     {
-        "recipe_name": "Roast chicken",
-        "recipe_time": 90,
-        "recipe_serves": 4,
-        "recipe_prep": 30,
-        "recipe_cuisine": "English"
-    },
-    {
         "recipe_name": "Lancaster Hotpot",
         "recipe_time": 100,
         "recipe_serves": 6,
@@ -28,10 +21,31 @@
         "recipe_cuisine": "Main"
     },
     {
-        "recipe_name": "test",
-        "recipe_time": 12,
+        "recipe_name": "Quick bake",
+        "recipe_time": 60,
+        "recipe_serves": 8,
+        "recipe_prep": 15,
+        "recipe_cuisine": "main"
+    },
+    {
+        "recipe_name": "One-Pan Meatball and Pepperoni Pasta Bake",
+        "recipe_time": 80,
+        "recipe_serves": 8,
+        "recipe_prep": 10,
+        "recipe_cuisine": "pasta"
+    },
+    {
+        "recipe_name": "5-Ingredient Freezer-Friendly Meatballs",
+        "recipe_time": 30,
+        "recipe_serves": 3,
+        "recipe_prep": 40,
+        "recipe_cuisine": "italian"
+    },
+    {
+        "recipe_name": "Ranch Chicken Wings",
+        "recipe_time": 50,
         "recipe_serves": 12,
-        "recipe_prep": 12,
-        "recipe_cuisine": "test"
+        "recipe_prep": 10,
+        "recipe_cuisine": "snack"
     }
 ]

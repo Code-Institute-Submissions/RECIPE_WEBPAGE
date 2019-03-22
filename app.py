@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = "./static/images"
 ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 app = Flask(__name__)
 app.secret_key = os.environ.get('KEY')
 
@@ -26,6 +27,7 @@ connection = pymysql.connect(host=os.environ.get("DB_HOST"),
                              user=os.environ.get("DB_USER"),
                              password=os.environ.get("DB_PASSWORD"),
                              db=os.environ.get("DB_NAME"))
+
 cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
@@ -97,15 +99,12 @@ def main():
         ids.append(recipe['recipe_id'])
     for id in ids:
         cursor.execute("SELECT recipe_id,AVG(rating) FROM REVIEWS"
-                       " WHERE recipe_id = %s", (id))
+                       " WHERE recipe_id = %s", id)
         rate = cursor.fetchall()
         rating += rate
     return render_template("main.html", all_recipes=all_recipes,
                            cuisines=cuisines,
                            rating=rating)
-
-
-# CREATE/READ/UPDATE/DELETE FUNCTIONS
 
 
 @app.route("/your_recipes/", methods=["POST", "GET"])
