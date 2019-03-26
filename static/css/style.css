@@ -178,14 +178,38 @@
 
 .rating {
     position: absolute;
-    top: 10px;
-    left: 5px;
+    top: 7px;
+    left: 20px;
     z-index: 2;
-    font-size: 1rem !important;
-
+    font-size: 1.5rem !important;
+}
+.inner-rating {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 1.5rem !important;
+    width: 0;
+}
+.rating::before{
+    content: "\f005 \f005 \f005 \f005 \f005";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #ccc;
+}
+.inner-rating::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #f8ce0b;
 }
 .review_rating {
     margin-right: 30px;
+}
+.review-score {
+    visibility: hidden;
 }
 .advanced-search a {
     color: white;
@@ -194,6 +218,14 @@
     margin: 0 !important;
 }
 .graphs {
-
     height: 450px !important;
+}
+
+heading {
+    font-size: 25px;
+margin-right: 25px;
+}
+
+.fa {
+    font-size: 25px;
 }

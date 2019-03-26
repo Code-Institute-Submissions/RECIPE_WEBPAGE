@@ -99,7 +99,25 @@ function recipeSearch(e){
         }
     }
 }
-    
+
+if(recipeBoxes){
+    function starReviews(){
+        recipeBoxes.forEach((box)=>{
+            let stars = box.querySelectorAll(".inner-rating");
+            let starsTotal = 5
+            if(stars.length > 0){
+                let scores = box.querySelectorAll(".review-score")[0].innerHTML;
+                let percentage = scores / starsTotal * 100;
+                let roundedPer = `${Math.round(percentage / 10) * 10}`;
+                stars[0].style.width = roundedPer + '%'
+            }
+        })
+    }
+
+    starReviews()
+
+}
+
 const resetSearch = document.getElementById("search_reset");
 
 function recipeReset(e){

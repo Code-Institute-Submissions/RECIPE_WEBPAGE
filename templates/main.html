@@ -57,16 +57,18 @@
             </span>
         </div>
         <div class="col s5 pull-s7">
-                <span class="flow-text">
-                <img style="height: 300px;" class="responsive-img recipe_image_card"
-                     src="/static/images/{{ recipe.image }}">
-                {% for data in rating %}
-                    {% if data["recipe_id"] == recipe.recipe_id %}
-                        <span class="new badge rating" data-badge-caption="Rating">
-                            {{ data["AVG(rating)"]|round(1, 'floor') }} / 5
-                        </span>
-                    {% endif %}
-                {% endfor %}
+            <span class="flow-text">
+            <img style="height: 300px;" class="responsive-img recipe_image_card"
+                 src="/static/images/{{ recipe.image }}">
+            {% for data in rating %}
+                {% if data["recipe_id"] == recipe.recipe_id %}
+                    <span class="rating">
+                        <span class="inner-rating"></span>
+                        <p class="review-score">{{ data["AVG(rating)"]|round(1, 'floor') }}<p>
+                    </span>
+                {% endif %}
+            {% endfor %}
+            </span>
         </div>
     </div>
     {% endfor %}

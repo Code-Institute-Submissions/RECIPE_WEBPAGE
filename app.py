@@ -91,7 +91,8 @@ def main():
     all_recipes = cursor.fetchall()
     cursor.execute("SELECT DISTINCT cuisine FROM RECIPES")
     cuisines = cursor.fetchall()
-
+    cursor.execute("SELECT recipe_id,rating FROM REVIEWS")
+    review = cursor.fetchall()
     ids = []
     rating = []
 
@@ -104,7 +105,8 @@ def main():
         rating += rate
     return render_template("main.html", all_recipes=all_recipes,
                            cuisines=cuisines,
-                           rating=rating)
+                           rating=rating,
+                           review=review)
 
 
 @app.route("/your_recipes/", methods=["POST", "GET"])
