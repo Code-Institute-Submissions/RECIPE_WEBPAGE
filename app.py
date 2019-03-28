@@ -266,7 +266,7 @@ def edit_recipe(id):
     ingredients = cursor.fetchall()
 
     method = recipe["method"].split("|")
-    1
+
     if request.method == "POST":
 
         recipe_name = request.form["recipe_name"]

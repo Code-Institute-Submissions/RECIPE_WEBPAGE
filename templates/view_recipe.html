@@ -62,7 +62,7 @@
             <li>
                 <div class="collapsible-header review_rating"><i class="material-icons">person</i>
                 {{ review.reviewer }}
-                <span class="new badge" data-badge-caption="Rating">{{ review.rating }} / 5</span>
+                <span class="new badge" data-badge-caption="Rating">{{ review.rating|int }} / 5</span>
                 </div>
                 <div class="collapsible-body"><span>{{ review.review }}</span></div>
             </li>
