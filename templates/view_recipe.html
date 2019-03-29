@@ -5,7 +5,6 @@
             <ul class="slides">
                 <li>
                     <img src="/static/images/{{ recipe.image}}">
-
                     <div class="caption center-align">
                         <h3>{{ recipe.recipe_name }}</h3>
                         <h5 class="light grey-text text-lighten-3">Enjoy cooking!</h5>
@@ -17,8 +16,12 @@
     <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
         <li class="tab disabled">Serves : {{ recipe.serves }}</li>
         <li class="tab disabled">Oven tempeture / Gas Mark : {{ recipe.temp }}</li>
-        <li class="tab disabled">Cooking time : {{ recipe.time }} <small>mins</small></li>
-        <li class="tab disabled">Preparation : {{ recipe.prep }} <small>mins</small></li>
+        <li class="tab disabled">Cooking time : {{ recipe.time }}
+            <small>mins</small>
+        </li>
+        <li class="tab disabled">Preparation : {{ recipe.prep }}
+            <small>mins</small>
+        </li>
     </ul>
     <div class="row recipe_list">
         <div class="col l4 m12 s12 recipe_ul">
@@ -27,9 +30,9 @@
                 {% for ingredients in ingredient %}
                 <li>
                     <label class="view_checkbox">
-                        <input class="tick" type="checkbox" />
+                        <input class="tick" type="checkbox"/>
                         <span>{{ ingredients.ingredient }}</span>
-                        </label>
+                    </label>
                 </li>
                 {% endfor %}
             </ul>
@@ -40,9 +43,9 @@
                 {% for method in methods %}
                 <li>
                     <label class="view_checkbox">
-                        <input class="tick" type="checkbox" />
+                        <input class="tick" type="checkbox"/>
                         <span>{{ method }}</span>
-                        </label>
+                    </label>
                 </li>
                 {% endfor %}
             </ul>
@@ -50,19 +53,17 @@
     </div>
 </div>
 
-
 <p><a href="/review/{{ id }}" class="btn-small waves-effect green btn">Review</a> Review this dish to help others.</p>
 
 <h5 class="center">Check out what people are saying!!</h5>
-
 <div class="review_list">
     <div class="row">
         <ul class="collapsible">
             {% for review in reviews %}
             <li>
                 <div class="collapsible-header review_rating"><i class="material-icons">person</i>
-                {{ review.reviewer }}
-                <span class="new badge" data-badge-caption="Rating">{{ review.rating|int }} / 5</span>
+                    {{ review.reviewer }}
+                    <span class="new badge" data-badge-caption="Rating">{{ review.rating|int }} / 5</span>
                 </div>
                 <div class="collapsible-body"><span>{{ review.review }}</span></div>
             </li>
@@ -70,6 +71,4 @@
         </ul>
     </div>
 </div>
-
-
 {% endblock %}

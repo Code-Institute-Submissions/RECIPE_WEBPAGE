@@ -2,32 +2,24 @@
     margin: 0;
     padding: 0;
 }
-
 /*nav and footer */
-
 .nav-wrapper {
     background-color: #152B39;
 }
-
 .page-footer {
     background-color: #152B39;
     margin-top: 100px;
 }
-
 /* logo styling */
-
 .little {
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 0.5em;
     color: white;
 }
-
 .page-title {
     margin: 20px 0;
 }
-
 /* Login and register page  */
-
 #main-login-page {
     background-image: url("https://images.pexels.com/photos/357743/pexels-photo-357743.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
     background-size: cover;
@@ -39,34 +31,26 @@
     text-align: center;
     padding: 40px 0 0 0;
 }
-
 #main-login-page h1 {
     color: #f9fbff;
     margin-bottom: 40px;
-
 }
-
 #main-login-page p {
     color: #f9fbff;
     font-size: 1.2em;
 }
-
 .main-button {
     margin-top: 10px;
     color: white;
     border: 2px solid white;
 }
-
 /* main page */
-
 .flow-text p {
     font-size: 0.8em;
 }
-
 .label-icon {
     color: black;
 }
-
 .recipe_image_card {
     max-height: 350px !important;
     width: 100%;
@@ -74,38 +58,29 @@
 #search_recipes {
     margin-bottom: 10px;
 }
-
 /* Recipe pages */
-
 .recipe-button {
     margin-top: 30px;
 }
-
 .recipes_header {
     margin: 5px 0 0 20px;
 }
-
 .recipe_title {
     font-size: 1.5em;
     text-align: center;
-
 }
-
 .recipe_ul {
     margin-top: 10px;
     border: 1px solid black;
     padding-bottom: 20px !important;
 }
-
 .slider {
     margin-top: 10px;
     height: 390px !important;
 }
-
 .slider .indicators .indicator-item {
     display: none;
 }
-
 .slider .slides li .caption {
     background-color: cadetblue;
     color: black;
@@ -134,48 +109,37 @@
 .recipe-input {
     border-bottom: none !important;
 }
-
 .filtered {
     margin-top: 10px;
 }
-
 .search_text {
     margin: 0;
 }
-
 .input-field.col label {
     font-weight: 400;
     color: black;
 }
-
 /* cuisines */
-
 .btn-cuisine {
     margin-left: 10px;
 }
-
 .login-wrapper {
     width: 500px;
     margin: auto;
 }
-
 .login-page {
     width: auto;
     text-align: center;
 }
-
 .login-button {
     margin-top: 20px;
 }
-
 .login-signup {
     margin-top: 20px;
 }
-
 .switch {
     margin-top: 20px;
 }
-
 .rating {
     position: absolute;
     top: 7px;

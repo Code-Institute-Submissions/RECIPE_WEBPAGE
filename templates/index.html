@@ -5,28 +5,25 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css"/>
     <title>Little Recipes</title>
 </head>
 
 <body>
-    <header id="main-login-page">
-        <h1><span class="little">Little</span> Recipes</h1>
-        <p>Keep your recipes safe and always with you</p>
-        <p>Plus browse hundreds of recipes from others for ideas and inspiration</p>
-        <a href="{{ url_for('login') }}" class="waves-effect waves-light btn login-button" type="submit"><i class="material-icons left">dialpad</i>Login</a>
-        <a href="{{ url_for('register') }}" class="waves-effect waves-light btn login-button blue" type="submit"><i class="material-icons left">account_circle</i>Register</a>
-        {% include 'includes/_messages.html' %}
-    </header>
+<header id="main-login-page">
+    <h1><span class="little">Little</span> Recipes</h1>
+    <p>Keep your recipes safe and always with you</p>
+    <p>Plus browse hundreds of recipes from others for ideas and inspiration</p>
+    <a href="{{ url_for('login') }}" class="waves-effect waves-light btn login-button" type="submit"><i
+            class="material-icons left">dialpad</i>Login</a>
+    <a href="{{ url_for('register') }}" class="waves-effect waves-light btn login-button blue" type="submit"><i
+            class="material-icons left">account_circle</i>Register</a>
+    {% include 'includes/_messages.html' %}
+</header>
 
 
-
-
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </body>
 
 </html>

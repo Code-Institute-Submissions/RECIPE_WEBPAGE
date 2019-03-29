@@ -1,32 +1,25 @@
 {% extends "base.html" %} {% block content %}
 <h4>List of your recipes</h4>
-
-
-<a href={{ url_for('add_recipe') }} class="waves-effect blue btn btn_small switch">Add a recipe</a>
+<a href="{{ url_for('add_recipe') }}" class="waves-effect blue btn btn_small switch">Add a recipe</a>
 <table class="highlight">
     <thead>
-        <tr>
-            <th>Recipe</th>
-            <th>Date / Time</th>
-        </tr>
+    <tr>
+        <th>Recipe</th>
+        <th>Date / Time</th>
+    </tr>
     </thead>
-
     <tbody>
-        {% for recipe in your_recipes %}
-        <tr>
-            <td>{{loop.index}}. {{ recipe.recipe_name }}</td>
-            <td>{{ recipe.date_entered }}</td>
-            <td>
-                <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect blue btn btn_small">View</a>
-                <a href="/edit_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn btn_small">Edit</a>
-                <a href="/delete_recipe/{{ recipe.recipe_id }}" class="waves-effect red btn modal-trigger" >Delete</a>
-
-            </td>
-        </tr>
-        {% endfor %}
+    {% for recipe in your_recipes %}
+    <tr>
+        <td>{{loop.index}}. {{ recipe.recipe_name }}</td>
+        <td>{{ recipe.date_entered }}</td>
+        <td>
+            <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect blue btn btn_small">View</a>
+            <a href="/edit_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn btn_small">Edit</a>
+            <a href="/delete_recipe/{{ recipe.recipe_id }}" class="waves-effect red btn modal-trigger">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
     </tbody>
-
 </table>
-
-
 {% endblock %}

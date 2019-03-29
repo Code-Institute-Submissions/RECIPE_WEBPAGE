@@ -10,26 +10,28 @@
                 <label for="recipe_name">Recipe Name?</label>
             </div>
             <div class="input-field col s4">
-                <input placeholder="Search by Cuisine or Course" id="cuisine" name="cuisine" type="text" class="validate">
+                <input placeholder="Search by Cuisine or Course" id="cuisine" name="cuisine" type="text"
+                       class="validate">
                 <label for="Cuisine">Cuisine / Course?</label>
             </div>
             <div class="input-field col s4">
-                <input placeholder="Search by Ingredient" id="ingredient" name="ingredient" type="text" class="validate">
+                <input placeholder="Search by Ingredient" id="ingredient" name="ingredient" type="text"
+                       class="validate">
                 <label for="ingredient">Ingredient?</label>
             </div>
         </div>
         <div class="row">
             <p class="range-field col l4 s4">
                 <label>Amount of prep time? (mins)</label>
-                <input type="range" id="prep_time" name="prep_time" min="5" max="180" value="5" />
+                <input type="range" id="prep_time" name="prep_time" min="5" max="180" value="5"/>
             </p>
             <p class="range-field col l4 s4">
                 <label>Rating</label>
-                <input type="range" id="rating" name="rating" min="1" max="5" value="1" />
+                <input type="range" id="rating" name="rating" min="1" max="5" value="1"/>
             </p>
             <p class="range-field col l4 s4">
                 <label>Servings</label>
-                <input type="range" id="serves" name="serves" min="1" max="20" value="1" />
+                <input type="range" id="serves" name="serves" min="1" max="20" value="1"/>
             </p>
         </div>
         <button class="btn waves-effect waves-light filter_button" type="submit" name="action">
@@ -46,24 +48,25 @@
 <div class="row">
     {% for all in all_recipes %}
     <div class="row">
-      <div class="col s7 push-s5">
-        <span class="flow-text">
-            <p>Recipe : {{ all.recipe_name.capitalize() }}</p>
-            <p>Cuisine : {{ all.cuisine.capitalize() }}</p>
-            <p>Preparation time: {{ all.prep }} mins</p>
-            <p>Serves: {{ all.serves }} people</p>
-            <p>Cooking time: {{ all.time }} </p>
-            <p>Published by: {{ all.name }}</p>
-            <p>Published by: {{ all.date_entered }}</p>
-            <a href="/view_recipe/{{ all.recipe_id }}" class="waves-effect waves-light btn ">View</a>
-            <a href="/quick_add/{{ all.recipe_id }}" class="waves-effect blue btn ">Add</a>
-        </span>
+        <div class="col s7 push-s5">
+            <span class="flow-text">
+                <p>Recipe : {{ all.recipe_name.capitalize() }}</p>
+                <p>Cuisine : {{ all.cuisine.capitalize() }}</p>
+                <p>Preparation time: {{ all.prep }} mins</p>
+                <p>Serves: {{ all.serves }} people</p>
+                <p>Cooking time: {{ all.time }} mins </p>
+                <p>Published by: {{ all.name }}</p>
+                <a href="/view_recipe/{{ all.recipe_id }}" class="waves-effect waves-light btn ">View</a>
+                <a href="/quick_add/{{ all.recipe_id }}" class="waves-effect blue btn ">Add</a>
+            </span>
         </div>
         <div class="col s5 pull-s7">
             <span class="flow-text">
-                <img style="height: 300px;" class="responsive-img recipe_image_card" src="/static/images/{{ all.image }}">
-         </div>
-
-    {% endfor %}
+                <img style="height: 300px;" class="responsive-img recipe_image_card"
+                     src="/static/images/{{ all.image }}">
+            </span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
 </div>
-{% endblock %}

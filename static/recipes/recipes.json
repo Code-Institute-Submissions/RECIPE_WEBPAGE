@@ -47,5 +47,19 @@
         "recipe_serves": 12,
         "recipe_prep": 10,
         "recipe_cuisine": "snack"
+    },
+    {
+        "recipe_name": "Meatballs mummas",
+        "recipe_time": 30,
+        "recipe_serves": 6,
+        "recipe_prep": 40,
+        "recipe_cuisine": "italian"
+    },
+    {
+        "recipe_name": "Choc cake",
+        "recipe_time": 50,
+        "recipe_serves": 24,
+        "recipe_prep": 15,
+        "recipe_cuisine": "Dessert"
     }
 ]

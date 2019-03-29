@@ -1,12 +1,15 @@
 {% extends "base.html" %} {% block content %}
 
-<h3 class="page-title">EDIT <small>{{ recipe_details.recipe_name }}</small> </h3>
+<h3 class="page-title">EDIT
+    <small>{{ recipe_details.recipe_name }}</small>
+</h3>
 <div class="row">
     <form method="POST" enctype=multipart/form-data class="col s12 recipe-form">
         <div class="row">
             <div class="input-field col l4 s4 ">
                 <i class="material-icons prefix">assignment</i>
-                <input id="recipe_name" name="recipe_name" type="text" class="validate" value="{{ recipe_details.recipe_name}}">
+                <input id="recipe_name" name="recipe_name" type="text" class="validate"
+                       value="{{ recipe_details.recipe_name}}">
                 <label for="recipe_name">Enter recipe name</label>
             </div>
             <div class="input-field col l4 s4">
@@ -41,15 +44,17 @@
 
             </div>
         </div>
-        <div  class="row">
+        <div class="row">
             <div id="list" class="input-field col l3 s12">
                 <label for="ingredients">Ingredients</label>
                 <input type="hidden" name="ingredients" value="">
-                <i class="material-icons prefix">subject</i> 
+                <i class="material-icons prefix">subject</i>
                 {% for ingredient in ingredients %}
-                <input id="ingredients" name="ingredient" type="text" class="validate" value="{{ ingredient.ingredient }}"> 
+                <input id="ingredients" name="ingredient" type="text" class="validate"
+                       value="{{ ingredient.ingredient }}">
                 {% endfor %}
-                 <a id="ingredients-btn" class="waves-effect waves-light btn-small ingredients-btn" onclick="addIngredient()">
+                <a id="ingredients-btn" class="waves-effect waves-light btn-small ingredients-btn"
+                   onclick="addIngredient()">
                     <i class="material-icons left">add</i>
                     Add ingredient
                 </a>
@@ -57,11 +62,11 @@
             <div id="method_list" class="input-field col l9 s12">
                 <label for="methods">Method</label>
                 <input type="hidden" name="methods" value="">
-                <i class="material-icons prefix">subject</i> 
+                <i class="material-icons prefix">subject</i>
                 {% for methods in method %}
-                <input id="method" name="method" type="text" class="validate" value="{{ methods }}"> 
+                <input id="method" name="method" type="text" class="validate" value="{{ methods }}">
                 {% endfor %}
-                 <a id="method-btn" class="waves-effect waves-light btn-small" onclick="addMethod()">
+                <a id="method-btn" class="waves-effect waves-light btn-small" onclick="addMethod()">
                     <i class="material-icons left">add</i>
                     add method
                 </a>
@@ -82,7 +87,7 @@
         <div class="row">
             <button class="btn waves-effect waves-light recipe-button" type="submit">Update Recipe
                 <i class="material-icons right prefix">playlist_add</i>
-             </button>
+            </button>
         </div>
     </form>
 </div>

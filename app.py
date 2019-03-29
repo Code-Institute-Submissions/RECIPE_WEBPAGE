@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 
 """upload path to store photos submitted from recipes"""
 
-UPLOAD_FOLDER = "./static/images"
+UPLOAD_FOLDER = "static/images/"
 ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
@@ -276,8 +276,28 @@ def edit_recipe(id):
         time = request.form["cook_time"]
         prep = request.form["prep_time"]
         method = request.form["methods"]
-        image = request.form["image"]
         ingredients = request.form["ingredients"].split("|")
+
+        if recipe['image'] != request.form["image"]:
+            """check if the post request has the file part"""
+            if 'file' not in request.files:
+                flash('please upload photo')
+                return redirect(request.url)
+            file = request.files['file']
+
+            """ if user does not select a file or browser
+                submits an empty part without filename """
+
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            Image = filename
+        else:
+            Image = request.form["image"]
 
         cursor.execute('UPDATE RECIPES SET recipe_name=%s, '
                        'cuisine=%s, '
@@ -289,7 +309,7 @@ def edit_recipe(id):
                        'image=%s'
                        ' WHERE recipe_id=%s',
                        (recipe_name, cuisine, serves, temp,
-                        time, prep, method, image, id))
+                        time, prep, method, Image, id))
 
         cursor.execute("DELETE FROM RECIPES_INGREDIENTS WHERE "
                        "recipes_id = %s", (id))
@@ -331,7 +351,6 @@ def edit_recipe(id):
 
         flash("Recipe has been updated!", "blue black-text lighten-2")
         return redirect(url_for("your_recipes"))
-
     return render_template("edit_recipe.html", recipe_details=recipe,
                            ingredients=ingredients,
                            method=method)
@@ -526,4 +545,4 @@ def logout():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=os.environ.get('PORT'),
-            debug=False)
+            debug=True)
