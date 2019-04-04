@@ -56,9 +56,23 @@
         "recipe_cuisine": "italian"
     },
     {
-        "recipe_name": "Choc cake",
+        "recipe_name": "Chocolate cake",
         "recipe_time": 50,
         "recipe_serves": 24,
+        "recipe_prep": 15,
+        "recipe_cuisine": "Dessert"
+    },
+    {
+        "recipe_name": "chocolate cake",
+        "recipe_time": 50,
+        "recipe_serves": 3,
+        "recipe_prep": 15,
+        "recipe_cuisine": "Dessert"
+    },
+    {
+        "recipe_name": "Really chocolatey cake",
+        "recipe_time": 50,
+        "recipe_serves": 12,
         "recipe_prep": 15,
         "recipe_cuisine": "Dessert"
     }

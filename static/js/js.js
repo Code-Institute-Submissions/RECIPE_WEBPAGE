@@ -113,9 +113,15 @@ if(recipeBoxes){
             }
         })
     }
-
+    function removeTime(){
+        dateEntered = document.querySelectorAll(".date");
+        [...dateEntered].map(times => {
+            time = times.textContent.slice(0,20)
+            times.innerHTML = time
+        });
+    }
     starReviews()
-
+    removeTime()
 }
 
 const resetSearch = document.getElementById("search_reset");
@@ -178,8 +184,7 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                     }   
                     return[numbers, appears];
                 }
-            
-             
+
                 let cuisineTotal = CountRecipes(graphCuisine);
                 var myCuisineChart = new Chart(CuisineChart, {
                     
@@ -196,7 +201,8 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                     options: {
                         title: {
     					    display: true,
-    						text: 'Cuisines'
+    						text: 'Cuisines',
+    						fontSize: 25,
     					},
                         legend: {
                             display: false,
@@ -240,7 +246,8 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                     options: {
                         title: {
     						display: true,
-    						text: 'Servings'
+    						text: 'Servings',
+    						fontSize: 25,
     					},
                         legend: {
                             display: false,
@@ -285,7 +292,8 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                     options: {
                          title: {
     						display: true,
-    						text: 'Preparation'
+    						text: 'Preparation',
+    						fontSize: 25,
     					},
                         legend: {
                             display: false,
@@ -330,7 +338,8 @@ if(CuisineChart || ServeChart || PrepChart || CookChart){
                     options: {
                          title: {
     						display: true,
-    						text: 'Cooking Time'
+    						text: 'Cooking Time',
+    						fontSize: 25,
     					},
                         legend: {
                             display: false,

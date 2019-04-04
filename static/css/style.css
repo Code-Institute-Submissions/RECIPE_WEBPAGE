@@ -58,6 +58,11 @@
 #search_recipes {
     margin-bottom: 10px;
 }
+.or {
+    text-align: center;
+    padding: auto;
+    margin: 10px 0;
+}
 /* Recipe pages */
 .recipe-button {
     margin-top: 30px;
@@ -183,6 +188,7 @@
 }
 .graphs {
     height: 450px !important;
+    margin-top: 10px;
 }
 heading {
     font-size: 25px;

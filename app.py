@@ -93,6 +93,7 @@ def main():
     cuisines = cursor.fetchall()
     cursor.execute("SELECT recipe_id,rating FROM REVIEWS")
     review = cursor.fetchall()
+
     ids = []
     rating = []
 

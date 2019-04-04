@@ -10,7 +10,7 @@
         <label for="search">Search By Recipe</label>
     </div>
     <div>
-        <p class="col s1 l1">OR</p>
+        <p class="col s1 l1 or">OR</p>
     </div>
     <div class="col s3 l4">
         <select id="select_cuisine">
@@ -47,11 +47,11 @@
             <span class="flow-text">
                 <p class="recipes_title">Recipe : {{ recipe.recipe_name.capitalize() }}</p>
                 <p class="recipes_cuisine">Cuisine / Course : {{ recipe.cuisine.capitalize() }}</p>
-                <p>Preparation time: {{ recipe.prep }} mins</p>
+                <p>Preparation time: {{ recipe.prep }} <small>mins</small></p>
                 <p>Serves: {{ recipe.serves }} people</p>
-                <p>Cooking time: {{ recipe.time }} </p>
-                <p>Published by: {{ recipe.name }}</p>
-                <p>Published by: {{ recipe.date_entered }}</p>
+                <p>Cooking time: {{ recipe.time }} <small>mins</small></p>
+                <p>Published by: {{ recipe.name|capitalize }}</p>
+                <p class="date">Created : {{ recipe.date_entered }}</p>
                 <a href="/view_recipe/{{ recipe.recipe_id }}" class="waves-effect waves-light btn ">View</a>
                 <a href="/quick_add/{{ recipe.recipe_id }}" class="waves-effect blue btn ">Add</a>
             </span>
